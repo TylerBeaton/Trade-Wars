@@ -19,8 +19,7 @@ import UserModel from './models/user';
 import indexRouter from './routes/index';
 import userRouter from './routes/users';
 
-
-
+const PROJECT_ROOT = process.cwd();
 
 // Initialize Sequelize with PostgreSQL connection
 const sequelize = new Sequelize(
@@ -50,7 +49,7 @@ sequelize.sync()
 var app = express();
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(PROJECT_ROOT, 'views'));
 app.set('view engine', 'pug');
 
 // Middleware setup
@@ -58,7 +57,7 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(PROJECT_ROOT, 'public')));
 
 // Set up routes
 app.use('/', indexRouter);
