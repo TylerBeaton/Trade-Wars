@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { User } from '../models/userModel'; // Adjust the import path as necessary }
+import { User } from '../models/userModel';
 
 export default (user: typeof User) => {
     return {
@@ -59,8 +59,8 @@ export default (user: typeof User) => {
                         where: { id: req.params.id }
                     }
                 );
-                const updatedUser = await user.findByPk(req.params.id); // Fetch the updated user data
-                res.json(updatedUser); // Return the updated user data in the response
+                const updatedUser = await user.findByPk(req.params.id);
+                res.json(updatedUser);
             } catch (err: any) {
                 console.error('Error updating user:', err);
                 res.status(400).json({ error: err.message });
