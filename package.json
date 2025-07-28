@@ -5,7 +5,8 @@
   "scripts": {
     "start": "node dist/server.js",
     "dev": "nodemon --watch ./ --ext ts --exec ts-node server.ts",
-    "build": "tsc"
+    "build": "tsc",
+    "test": "mocha --require ts-node/register tests/**/*.test.ts"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
