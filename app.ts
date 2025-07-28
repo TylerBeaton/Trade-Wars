@@ -1,6 +1,5 @@
-// This file is part of the Express.js application setup.
-require('dotenv').config();
-import 'dotenv/config'; // Load environment variables from .env file'
+// load env variables
+import 'dotenv/config';
 
 // import modules
 import { Request, Response, NextFunction } from 'express';
@@ -13,11 +12,11 @@ import { HttpError } from './interfaces/httpError';
 import { Sequelize, DataTypes } from 'sequelize';
 
 // Import models
-import UserModel from './models/user';
+import UserModel from './models/userModel';
 
 // Import routes
-import indexRouter from './routes/index';
-import userRouter from './routes/users';
+import indexRouter from './routes/indexRouter';
+import apiRouter from './routes/apiRouter';
 
 const PROJECT_ROOT = process.cwd();
 
@@ -61,7 +60,7 @@ app.use(express.static(path.join(PROJECT_ROOT, 'public')));
 
 // Set up routes
 app.use('/', indexRouter);
-app.use('/users', userRouter(User));
+app.use('/api', apiRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -23,9 +23,9 @@ export default (sequelize: Sequelize) => {
             allowNull: false,
         },
     },
-    {
-        sequelize,
-        tableName: 'users',
-    });
+        {
+            sequelize,
+            tableName: 'users',
+        });
     return User;
 }
