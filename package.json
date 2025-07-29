@@ -6,7 +6,10 @@
     "start": "node dist/server.js",
     "dev": "nodemon --watch ./ --ext ts --exec ts-node server.ts",
     "build": "tsc",
-    "test": "mocha --require ts-node/register tests/**/*.test.ts"
+    "test": "mocha --require ts-node/register tests/**/*.test.ts",
+    "test:routes": "mocha --require ts-node/register tests/userRoutes.test.ts",
+    "test:models": "mocha --require ts-node/register tests/userModel.test.ts"
+
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
