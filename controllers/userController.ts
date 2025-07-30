@@ -28,9 +28,8 @@ export default (user: typeof User) => {
         // POST /users
         createUser: async (req: Request, res: Response) => {
             try {
-                if (!req.body.firstName || !req.body.lastName) {
-                    return res.status(400).json({ error: 'firstName and lastName are required' });
-                }
+                if (!req.body.firstName)    return res.status(400).json({ error: 'firstName is required' });
+                if (!req.body.lastName)     return res.status(400).json({ error: 'lastName is required' });
                 const instance = await user.create({
                     id: req.body.id,
                     firstName: req.body.firstName,
