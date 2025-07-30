@@ -11,8 +11,8 @@ import logger from 'morgan';
 import { HttpError } from './interfaces/httpError';
 import { Sequelize, DataTypes } from 'sequelize';
 
-// Import models
-import UserModel from './models/userModel';
+// Import models initialization
+import { initializeModels } from './models';
 
 // Import routes
 import indexRouter from './routes/indexRouter';
@@ -31,8 +31,8 @@ const sequelize = new Sequelize(
     }
 );
 
-// After setting up sequelize
-const User = UserModel(sequelize);
+// Initialize all models and their associations
+const models = initializeModels(sequelize);
 
 // Test the database connection
 sequelize.authenticate()
@@ -79,4 +79,4 @@ app.use(function (err: HttpError, req: Request, res: Response, next: NextFunctio
 });
 
 // Export the app to run with a server
-export { app };
+export { app, sequelize };
