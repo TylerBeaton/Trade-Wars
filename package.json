@@ -6,10 +6,9 @@
     "start": "node dist/server.js",
     "dev": "nodemon --watch ./ --ext ts --exec ts-node server.ts",
     "build": "tsc",
-    "test": "mocha --require ts-node/register tests/**/*.test.ts",
-    "test:routes": "mocha --require ts-node/register tests/userRoutes.test.ts",
-    "test:models": "mocha --require ts-node/register tests/userModel.test.ts"
-
+    "test": "cross-env NODE_ENV=test mocha --require ts-node/register tests/first.test.ts tests/userModel.test.ts tests/userRoutes.test.ts --timeout 10000 --reporter spec --bail",
+    "test:routes": "cross-env NODE_ENV=test mocha --require ts-node/register tests/userRoutes.test.ts",
+    "test:models": "cross-env NODE_ENV=test mocha --require ts-node/register tests/userModel.test.ts"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
@@ -33,6 +32,7 @@
     "@types/sequelize": "^4.28.20",
     "@types/supertest": "^6.0.3",
     "chai": "^5.2.1",
+    "cross-env": "^10.0.0",
     "eslint": "^9.31.0",
     "mocha": "^11.7.1",
     "nodemon": "^3.1.10",

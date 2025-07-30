@@ -1,8 +1,9 @@
 import { expect } from 'chai';
 import request from 'supertest';
-import { app } from '../app';
+import { app, sequelize } from '../app';
 
 describe('User Routes', () => {
+
     // First test: get all users (GET)
     it("should return a list of all users", async () => {
         const response = await request(app)
@@ -88,7 +89,6 @@ describe('User Routes', () => {
     });
 
     // Fifth test: delete a user (DELETE)
-
     it("should delete a user", async () => {
         const newUser = {
             firstName: 'delete',
