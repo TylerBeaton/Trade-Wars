@@ -36,7 +36,7 @@ describe('Trade Model', () => {
         try {
             await Trade.create({
                 stock: 'GOOG',
-                price: 42,
+                price: 42.00,
                 quantity: 100,
                 type: 'buy',
                 description: "Test trade using mocha, supertest, and chai.",
@@ -52,7 +52,7 @@ describe('Trade Model', () => {
         const trade = await Trade.create({
             ownerId: 1,
             stock: 'GOOG',
-            price: 42,
+            price: 42.00,
             quantity: 100,
             type: 'buy',
             description: "Test trade using mocha, supertest, and chai.",
@@ -62,7 +62,7 @@ describe('Trade Model', () => {
         expect(trade).to.have.property('id');
         expect(trade.ownerId).to.equal(1);
         expect(trade.stock).to.equal('GOOG');
-        expect(trade.price).to.equal(42);
+        expect(trade.price).to.equal('42.00');
         expect(trade.quantity).to.equal(100);
         expect(trade.type).to.equal('buy');
         expect(trade.description).to.equal("Test trade using mocha, supertest, and chai.");

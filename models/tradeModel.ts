@@ -27,16 +27,26 @@ export default (sequelize: Sequelize) => {
             allowNull: false
         },
         stock: {
-            type: DataTypes.STRING,
+            type: DataTypes.STRING(4),
             allowNull: false,
+            validate: {
+                isUppercase: true,
+                len: [1, 4]
+            }
         },
         price: {
-            type: DataTypes.FLOAT,
+            type: DataTypes.DECIMAL(10, 2),
             allowNull: false,
+            validate: {
+                min: 0.01
+            }
         },
         quantity: {
             type: DataTypes.INTEGER,
             allowNull: false,
+            validate: {
+                min: 1
+            }
         },
         type: {
             type: DataTypes.ENUM('buy', 'sell'),

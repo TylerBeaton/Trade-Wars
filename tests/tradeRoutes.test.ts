@@ -18,7 +18,7 @@ describe('Trade Routes', () => {
         const newTrade = {
             ownerId: 1,
             stock: 'GOOG',
-            price: 42,
+            price: 42.00,
             quantity: 100,
             type: 'buy',
             description: "Test trade using mocha, supertest, and chai.",
@@ -34,7 +34,7 @@ describe('Trade Routes', () => {
 
         expect(response.body).to.have.property('id');
         expect(response.body).to.have.property('stock', 'GOOG');
-        expect(response.body).to.have.property('price', 42);
+        expect(response.body).to.have.property('price', 42.00);
         expect(response.body).to.have.property('quantity', 100);
         expect(response.body).to.have.property('type', 'buy');
         expect(response.body).to.have.property('description', 'Test trade using mocha, supertest, and chai.');
@@ -47,7 +47,7 @@ describe('Trade Routes', () => {
         const newTrade = {
             ownerId: 1,
             stock: 'GOOG',
-            price: 42,
+            price: 42.00,
             quantity: 100,
             type: 'buy',
             description: "Test trade using mocha, supertest, and chai.",
@@ -68,7 +68,7 @@ describe('Trade Routes', () => {
 
         expect(response.body).to.have.property('id');
         expect(response.body).to.have.property('stock', 'GOOG');
-        expect(response.body).to.have.property('price', 42);
+        expect(response.body).to.have.property('price', 42.00);
         expect(response.body).to.have.property('quantity', 100);
         expect(response.body).to.have.property('type', 'buy');
         expect(response.body).to.have.property('description', 'Test trade using mocha, supertest, and chai.');
@@ -81,7 +81,7 @@ describe('Trade Routes', () => {
         const newTrade = {
             ownerId: 1,
             stock: 'GOOG',
-            price: 42,
+            price: 42.00,
             quantity: 100,
             type: 'buy',
             description: "Test trade using mocha, supertest, and chai.",
@@ -99,7 +99,7 @@ describe('Trade Routes', () => {
         const updateData = {
             ownerId: 1,
             stock: 'GOOG',
-            price: 32, // Update the trade price
+            price: 32.00, // Update the trade price
             quantity: 100,
             type: 'buy',
             description: "Test trade using mocha, supertest, and chai.",
@@ -114,7 +114,7 @@ describe('Trade Routes', () => {
         console.log("Updated trade: ", updateResponse.body);
         expect(updateResponse.body).to.have.property('id');
         expect(updateResponse.body).to.have.property('stock', 'GOOG');
-        expect(updateResponse.body).to.have.property('price', 32);
+        expect(updateResponse.body).to.have.property('price', 32.00);
         expect(updateResponse.body).to.have.property('quantity', 100);
         expect(updateResponse.body).to.have.property('type', 'buy');
         expect(updateResponse.body).to.have.property('description', 'Test trade using mocha, supertest, and chai.');
@@ -126,7 +126,7 @@ describe('Trade Routes', () => {
         const newTrade = {
             ownerId: 1,
             stock: 'GOOG',
-            price: 42,
+            price: 42.00,
             quantity: 100,
             type: 'buy',
             description: "Test trade using mocha, supertest, and chai.",
