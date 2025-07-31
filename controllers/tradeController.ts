@@ -1,6 +1,8 @@
 import { Request, Response } from 'express';
 import { Trade } from '../models/tradeModel';
 
+const excludedAttributes = ['ownerId', 'updatedAt', 'isActive'];
+
 export default (trade: typeof Trade) => {
     return {
         // GET /trades
@@ -11,7 +13,8 @@ export default (trade: typeof Trade) => {
                         include: [{
                             association: 'owner',
                             attributes: ['id', 'firstName', 'lastName']
-                        }]
+                        }],
+                        attributes: { exclude: excludedAttributes }
                     }
                 );
                 res.json(trades);
@@ -29,7 +32,8 @@ export default (trade: typeof Trade) => {
                         include: [{
                             association: 'owner',
                             attributes: ['id', 'firstName', 'lastName']
-                        }]
+                        }],
+                        attributes: { exclude: excludedAttributes }
                     });
                 res.json(tradeInstance);
             }
