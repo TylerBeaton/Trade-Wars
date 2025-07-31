@@ -1,6 +1,5 @@
 import { DataTypes, Model, Sequelize } from 'sequelize';
 import { TradeAttributes } from '../interfaces/tradeAttributes';
-import { User } from './userModel'; // Assuming User model is defined in userModel.ts
 
 export class Trade extends Model<TradeAttributes> implements TradeAttributes {
     public id!: number;
