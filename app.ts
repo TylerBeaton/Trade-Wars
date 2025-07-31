@@ -79,4 +79,4 @@ app.use(function (err: HttpError, req: Request, res: Response, next: NextFunctio
 });
 
 // Export the app to run with a server
-export { app, sequelize };
+export { app, sequelize, models };
