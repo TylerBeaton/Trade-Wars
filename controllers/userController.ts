@@ -31,7 +31,6 @@ export default (user: typeof User) => {
                 if (!req.body.firstName)    return res.status(400).json({ error: 'firstName is required' });
                 if (!req.body.lastName)     return res.status(400).json({ error: 'lastName is required' });
                 const instance = await user.create({
-                    id: req.body.id,
                     firstName: req.body.firstName,
                     lastName: req.body.lastName,
                 });

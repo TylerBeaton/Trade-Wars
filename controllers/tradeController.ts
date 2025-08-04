@@ -51,7 +51,6 @@ export default (trade: typeof Trade) => {
                 if (!req.body.quantity) return res.status(400).json({ error: 'quantity is required' });
                 if (!req.body.type)     return res.status(400).json({ error: 'type is required' });
                 const instance = await trade.create({
-                    id: req.body.id,
                     ownerId: req.body.ownerId,
                     stock: req.body.stock,
                     price: req.body.price,

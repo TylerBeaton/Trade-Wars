@@ -2,7 +2,7 @@ import { DataTypes, Model, Sequelize } from 'sequelize';
 import { UserAttributes } from '../interfaces/userAttributes';
 
 export class User extends Model<UserAttributes> implements UserAttributes {
-    public id!: number;
+    public id?: number;
     public firstName!: string;
     public lastName!: string;
 }

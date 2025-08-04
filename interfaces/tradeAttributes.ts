@@ -1,5 +1,5 @@
 export interface TradeAttributes {
-    id: number;
+    id?: number;
     ownerId: number;
     stock: string;
     price: number;

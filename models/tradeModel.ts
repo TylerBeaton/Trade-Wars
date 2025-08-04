@@ -2,7 +2,7 @@ import { DataTypes, Model, Sequelize } from 'sequelize';
 import { TradeAttributes } from '../interfaces/tradeAttributes';
 
 export class Trade extends Model<TradeAttributes> implements TradeAttributes {
-    public id!: number;
+    public id?: number;
     public ownerId!: number;
     public stock!: string;
     public price!: number;
