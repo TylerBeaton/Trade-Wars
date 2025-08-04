@@ -2,12 +2,12 @@ import { DataTypes, Model, Sequelize } from 'sequelize';
 import { GameAttributes } from '../interfaces/gameAttributes';
 
 export class Game extends Model<GameAttributes> implements GameAttributes {
-    id!: string;
+    id?: number;
     name!: string;
     description?: string;
     maxPlayers!: number;
 
-    authorId!: number;
+    ownerId!: number;
 
     players!: number[];
     trades!: number[];
@@ -46,7 +46,7 @@ export default (sequelize: Sequelize) => {
                 max: 100
             }
         },
-        authorId: {
+        ownerId: {
             type: DataTypes.INTEGER,
             allowNull: false
         },

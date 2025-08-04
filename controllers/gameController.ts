@@ -32,13 +32,12 @@ export default (game: typeof Game) => {
             try {
                 if (!req.body.name) return res.status(400).json({ error: 'name is required' });
                 if (!req.body.maxPlayers) return res.status(400).json({ error: 'maxPlayers is required' });
-                if (!req.body.authorId) return res.status(400).json({ error: 'authorId is required' });
+                if (!req.body.ownerId) return res.status(400).json({ error: 'ownerId is required' });
                 const instance = await game.create({
-                    id: req.body.id,
                     name: req.body.name,
                     description: req.body.description,
                     maxPlayers: req.body.maxPlayers,
-                    authorId: req.body.authorId,
+                    ownerId: req.body.ownerId,
                     players: req.body.players ?? [],    // Start empty
                     trades: req.body.trades ?? [],      // Start empty
                     isActive: req.body.isActive ?? true,

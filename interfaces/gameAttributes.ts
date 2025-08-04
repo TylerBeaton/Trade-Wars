@@ -1,10 +1,10 @@
 export interface GameAttributes {
-  id: string;
+  id?: number;
   name: string;
   description?: string;
   maxPlayers: number;
 
-  authorId: number;
+  ownerId: number;
 
   players: number[];
   trades: number[];
