@@ -39,7 +39,6 @@ export default (game: typeof Game) => {
                     maxPlayers: req.body.maxPlayers,
                     ownerId: req.body.ownerId,
                     players: req.body.players ?? [],    // Start empty
-                    trades: req.body.trades ?? [],      // Start empty
                     isActive: req.body.isActive ?? true,
 
                 });

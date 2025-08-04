@@ -10,7 +10,6 @@ export class Game extends Model<GameAttributes> implements GameAttributes {
     ownerId!: number;
 
     players!: number[];
-    trades!: number[];
 
     createdAt!: Date;
     updatedAt?: Date;
@@ -51,11 +50,6 @@ export default (sequelize: Sequelize) => {
             allowNull: false
         },
         players: {
-            type: DataTypes.ARRAY(DataTypes.INTEGER),
-            allowNull: true,
-            defaultValue: []
-        },
-        trades: {
             type: DataTypes.ARRAY(DataTypes.INTEGER),
             allowNull: true,
             defaultValue: []

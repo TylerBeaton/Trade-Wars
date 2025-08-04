@@ -7,7 +7,6 @@ export interface GameAttributes {
   ownerId: number;
 
   players: number[];
-  trades: number[];
 
   isActive: boolean;
 }
