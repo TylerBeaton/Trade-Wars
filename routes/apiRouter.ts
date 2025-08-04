@@ -1,8 +1,10 @@
 import { Router } from 'express';
 import { userRouter } from './userRouter';
 import { tradeRouter } from './tradeRouter';
+import { gameRouter } from './gameRouter';
 import { User } from '../models/userModel';
 import { Trade } from '../models/tradeModel';
+import { Game } from '../models/gameModel';
 
 const router = Router();
 
@@ -10,6 +12,8 @@ const router = Router();
 
 router.use('/users', userRouter(User));
 router.use('/trades', tradeRouter(Trade))
+router.use('/games', gameRouter(Game))
+
 
 
 export default router;
