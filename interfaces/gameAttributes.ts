@@ -3,10 +3,6 @@ export interface GameAttributes {
   name: string;
   description?: string;
   maxPlayers: number;
-
   ownerId: number;
-
-  players: number[];
-
   isActive: boolean;
 }

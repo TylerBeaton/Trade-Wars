@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { Game } from '../models/gameModel';
+import { User } from '../models/userModel';
 
 export default (game: typeof Game) => {
     return {
@@ -25,6 +26,58 @@ export default (game: typeof Game) => {
             }
         },
 
+        addPlayerToGame: async (req: Request, res: Response) => {
+            try {
+                const gameId = req.params.id;
+                const { userId } = req.body;
+
+                if (!userId) {
+                    return res.status(400).json({ error: 'userId is required' });
+                }
+
+                const gameInstance = await game.findByPk(gameId);
+                if (!gameInstance) {
+                    return res.status(404).json({ error: `Game with ID ${gameId} not found` });
+                }
+
+                await gameInstance.addPlayer(userId);
+                res.json({ message: `User ${userId} added to game ${gameId}` });
+
+            }
+            catch (err) {
+                console.error('Error adding player to game:', err);
+                res.status(500).json({ error: 'Failed to add player to the game' });
+            }
+        },
+
+        // Remove players from game
+
+
+        getPlayersByGameId: async (req: Request, res: Response) => {
+            try {
+                const gameId = req.params.id;
+                const gameInstance = await game.findByPk(gameId, {
+                    include: [{
+                        association: 'players',
+                        attributes: ['id', 'firstName', 'lastName']
+                    }]
+                });
+
+                if (!gameInstance) {
+                    return res.status(404).json({ error: `Game with ID ${gameId} not found` });
+                }
+                return res.json(gameInstance.players);
+
+            }
+            catch (err) {
+                console.error('Error fetching players by game ID:', err);
+                res.status(500).json({ error: 'Failed to fetch players for the game' });
+            }
+        },
+
+        getTradesByGameId: async (req: Request, res: Response) => {
+
+        },
 
 
         // POST /games
@@ -38,7 +91,6 @@ export default (game: typeof Game) => {
                     description: req.body.description,
                     maxPlayers: req.body.maxPlayers,
                     ownerId: req.body.ownerId,
-                    players: req.body.players ?? [],    // Start empty
                     isActive: req.body.isActive ?? true,
 
                 });

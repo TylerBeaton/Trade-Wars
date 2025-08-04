@@ -8,8 +8,13 @@ export const gameRouter = (game: typeof Game) => {
 
     router.get('/', gameController.getGames);
     router.get('/:id', gameController.getGamesById);
+    router.get('/:id/players', gameController.getPlayersByGameId);
+    router.get('/:id/trades', gameController.getTradesByGameId);
 
     router.post('/', gameController.createGame);
+    router.post('/:id/players', gameController.addPlayerToGame)
+
+
     router.put('/:id', gameController.updateGame);
     router.delete('/:id', gameController.deleteGame);
 

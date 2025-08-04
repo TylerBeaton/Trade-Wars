@@ -1,6 +1,6 @@
-import { DataTypes, Model, Sequelize } from 'sequelize';
+import { DataTypes, Model, Sequelize, Association } from 'sequelize';
 import { GameAttributes } from '../interfaces/gameAttributes';
-
+import { User } from './userModel';
 export class Game extends Model<GameAttributes> implements GameAttributes {
     id?: number;
     name!: string;
@@ -9,12 +9,21 @@ export class Game extends Model<GameAttributes> implements GameAttributes {
 
     ownerId!: number;
 
-    players!: number[];
-
     createdAt!: Date;
     updatedAt?: Date;
     isActive!: boolean;
+    players?: User[];
+
+    // Add other associations like remove, set, get, has...etc
+    addPlayer!: (user: User) => Promise<void>;
+
+    static associations: {
+        players: Association<Game, User>;
+    };
+
 }
+
+
 
 export default (sequelize: Sequelize) => {
     Game.init({
@@ -48,12 +57,7 @@ export default (sequelize: Sequelize) => {
         ownerId: {
             type: DataTypes.INTEGER,
             allowNull: false
-        },
-        players: {
-            type: DataTypes.ARRAY(DataTypes.INTEGER),
-            allowNull: true,
-            defaultValue: []
-        },
+        }, 
         isActive: {
             type: DataTypes.BOOLEAN,
             defaultValue: true,
