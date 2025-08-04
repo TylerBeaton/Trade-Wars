@@ -9,7 +9,5 @@ export interface GameAttributes {
   players: number[];
   trades: number[];
 
-  createdAt: Date;
-  updatedAt?: Date;
   isActive: boolean;
 }
