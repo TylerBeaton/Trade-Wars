@@ -7,11 +7,11 @@ export const gameRouter = (game: typeof Game) => {
     const gameController = GameController(game);
 
     router.get('/', gameController.getGames);
-    router.get('/:id', tradeController.getTradeById);
+    router.get('/:id', gameController.getGamesById);
 
-    router.post('/', tradeController.createTrade);
-    router.put('/:id', tradeController.updateTrade);
-    router.delete('/:id', tradeController.deleteTrade);
+    router.post('/', gameController.createGame);
+    router.put('/:id', gameController.updateGame);
+    router.delete('/:id', gameController.deleteGame);
 
     return router;
 };
