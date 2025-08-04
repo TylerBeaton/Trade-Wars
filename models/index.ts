@@ -29,6 +29,7 @@ export const initializeModels = (sequelize: Sequelize) => {
         as: 'game'
     });
 
+
     return {
         User: UserModel,
         Trade: TradeModel,

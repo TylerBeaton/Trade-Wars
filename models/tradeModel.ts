@@ -4,6 +4,7 @@ import { TradeAttributes } from '../interfaces/tradeAttributes';
 export class Trade extends Model<TradeAttributes> implements TradeAttributes {
     public id?: number;
     public ownerId!: number;
+    public gameId!: number;
     public stock!: string;
     public price!: number;
     public quantity!: number;
@@ -22,6 +23,10 @@ export default (sequelize: Sequelize) => {
             primaryKey: true,
         },
         ownerId: {
+            type: DataTypes.INTEGER,
+            allowNull: false
+        },
+        gameId: {
             type: DataTypes.INTEGER,
             allowNull: false
         },

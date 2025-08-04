@@ -1,6 +1,7 @@
 export interface TradeAttributes {
     id?: number;
     ownerId: number;
+    gameId: number;
     stock: string;
     price: number;
     quantity: number;

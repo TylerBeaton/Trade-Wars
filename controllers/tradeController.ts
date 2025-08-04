@@ -45,13 +45,15 @@ export default (trade: typeof Trade) => {
         // POST /trades
         createTrade: async (req: Request, res: Response) => {
             try {
-                if (!req.body.ownerId)    return res.status(400).json({ error: 'ownerId is required' });
+                if (!req.body.ownerId)  return res.status(400).json({ error: 'ownerId is required' });
+                if (!req.body.gameId)   return res.status(400).json({ error: 'gameId is required' });
                 if (!req.body.stock)    return res.status(400).json({ error: 'stock is required' });
                 if (!req.body.price)    return res.status(400).json({ error: 'price is required' });
                 if (!req.body.quantity) return res.status(400).json({ error: 'quantity is required' });
                 if (!req.body.type)     return res.status(400).json({ error: 'type is required' });
                 const instance = await trade.create({
                     ownerId: req.body.ownerId,
+                    gameId: req.body.gameId,
                     stock: req.body.stock,
                     price: req.body.price,
                     quantity: req.body.quantity,
