@@ -52,6 +52,12 @@ export default (game: typeof Game) => {
 
         // Remove players from game
 
+        removePlayerFromGame: async (req: Request, res: Response) => {
+
+        },
+
+
+
 
         getPlayersByGameId: async (req: Request, res: Response) => {
             try {
