@@ -14,7 +14,8 @@ export class Game extends Model<GameAttributes> implements GameAttributes {
     isActive!: boolean;
     players?: User[];
 
-    addPlayer!: (user: User) => Promise<void>; 
+    addPlayer!: (user: User) => Promise<void>;
+    removePlayer!: (userId: number) => Promise<void>;
 
     // Add other associations like remove, set, get, has...etc
 

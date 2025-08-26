@@ -4,6 +4,7 @@ import { User } from '../models/userModel';
 
 export default (game: typeof Game) => {
     return {
+
         // GET /games
         getGames: async (req: Request, res: Response) => {
             try {
@@ -53,11 +54,27 @@ export default (game: typeof Game) => {
         // Remove players from game
 
         removePlayerFromGame: async (req: Request, res: Response) => {
+            try {
+                const gameId = req.params.id;
+                const { userId } = req.body;
 
+                if (!userId) {
+                    return res.status(400).json({ error: 'userId is required' });
+                }
+
+                const gameInstance = await game.findByPk(gameId);
+                if (!gameInstance) {
+                    return res.status(404).json({ error: `Game with ID ${gameId} not found` });
+                }
+
+                await gameInstance.removePlayer(userId);
+                res.json({ message: `User ${userId} removed from game ${gameId}` });
+            }
+            catch (err) {
+                console.error('Error removing player from game:', err);
+                res.status(500).json({ error: 'Failed to remove player from the game' });
+            }
         },
-
-
-
 
         getPlayersByGameId: async (req: Request, res: Response) => {
             try {
