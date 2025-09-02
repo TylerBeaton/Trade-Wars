@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { Trade } from '../models/tradeModel';
 
-const excludedAttributes = ['ownerId', 'updatedAt', 'isActive'];
+const excludedAttributes = ['updatedAt', 'isActive'];
 
 export default (trade: typeof Trade) => {
     return {
