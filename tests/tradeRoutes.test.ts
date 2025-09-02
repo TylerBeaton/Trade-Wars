@@ -93,7 +93,7 @@ describe('Trade Routes', () => {
             .get(`/api/trades/${tradeId}`)
             .expect(200);
 
-        expect(response.body).to.have.property('id');
+        expect(response.body).to.have.property('id', tradeId);
         expect(response.body).to.have.property('ownerId', testUser.id);
         expect(response.body).to.have.property('gameId', testGame.id);
         expect(response.body).to.have.property('stock', 'GOOG');
