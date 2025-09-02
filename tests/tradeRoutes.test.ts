@@ -1,8 +1,32 @@
 import { expect } from 'chai';
 import request from 'supertest';
-import { app, sequelize } from '../app';
+import { app, models, sequelize } from '../app';
 
 describe('Trade Routes', () => {
+
+    let testUser: any;
+    let testGame: any;
+
+    beforeEach(async () => {
+        await sequelize.sync({ force: true });
+
+        testUser = await models.User.create({
+            firstName: "Test",
+            lastName: "User"
+        });
+
+        testGame = await models.Game.create({
+            name: "Test Game",
+            description: "A game created during testing",
+            maxPlayers: 4,
+            ownerId: testUser.id,
+            isActive: true
+        });
+    });
+
+    afterEach(async () => {
+        await sequelize.sync({ force: true });
+    });
 
     // First test: get all trades (GET)
     it("should return a list of all trades", async () => {
@@ -16,8 +40,8 @@ describe('Trade Routes', () => {
     // Second test: create a new trade (POST)
     it("should create a new trade", async () => {
         const newTrade = {
-            ownerId: 1,
-            gameId: 1,
+            ownerId: testUser.id,
+            gameId: testGame.id,
             stock: 'GOOG',
             price: 42.00,
             quantity: 100,
@@ -47,8 +71,8 @@ describe('Trade Routes', () => {
     // Third test: get a trade by ID (GET)
     it("should return a trade by ID", async () => {
         const newTrade = {
-            ownerId: 1,
-            gameId: 1,
+            ownerId: testUser.id,
+            gameId: testGame.id,
             stock: 'GOOG',
             price: 42.00,
             quantity: 100,
@@ -83,8 +107,8 @@ describe('Trade Routes', () => {
     // Fourth test: update a trade (PUT)
     it("should update a trade", async () => {
         const newTrade = {
-            ownerId: 1,
-            gameId: 1,
+            ownerId: testUser.id,
+            gameId: testGame.id,
             stock: 'GOOG',
             price: 42.00,
             quantity: 100,
@@ -102,7 +126,8 @@ describe('Trade Routes', () => {
         console.log('Created trade for update (PUT) with id: ', tradeId)
 
         const updateData = {
-            ownerId: 1,
+            ownerId: testUser.id,
+            gameId: testGame.id,
             stock: 'GOOG',
             price: 32.00, // Update the trade price
             quantity: 100,
@@ -130,8 +155,8 @@ describe('Trade Routes', () => {
     // Fifth test: delete a trade (DELETE)
     it("should delete a trade", async () => {
         const newTrade = {
-            ownerId: 1,
-            gameId: 1,
+            ownerId: testUser.id,
+            gameId: testGame.id,
             stock: 'GOOG',
             price: 42.00,
             quantity: 100,
