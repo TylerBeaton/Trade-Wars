@@ -7,7 +7,7 @@
     "dev": "nodemon --watch ./ --ext ts --exec ts-node server.ts",
     "build": "tsc",
     "test": "cross-env NODE_ENV=test mocha --require ts-node/register tests/first.test.ts tests/userModel.test.ts tests/userRoutes.test.ts tests/tradeRoutes.test.ts --timeout 10000 --reporter spec --bail",
-    "test:routes": "cross-env NODE_ENV=test mocha --require ts-node/register tests/userRoutes.test.ts tests/tradeRoutes.test.ts",
+    "test:routes": "cross-env NODE_ENV=test mocha --require ts-node/register tests/userRoutes.test.ts tests/tradeRoutes.test.ts tests/gameRoutes.test.ts",
     "test:models": "cross-env NODE_ENV=test mocha --require ts-node/register tests/userModel.test.ts tests/tradeModel.test.ts"
   },
   "dependencies": {

@@ -29,6 +29,12 @@ export const initializeModels = (sequelize: Sequelize) => {
         as: 'game'
     });
 
+    // Owner of the game
+    GameModel.belongsTo(UserModel, {
+        foreignKey: 'ownerId',
+        as: 'owner'
+    })
+
     GameModel.belongsToMany(UserModel, {
         through: 'gamePlayers',
         as: 'players',

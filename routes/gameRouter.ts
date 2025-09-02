@@ -7,7 +7,7 @@ export const gameRouter = (game: typeof Game) => {
     const gameController = GameController(game);
 
     router.get('/', gameController.getGames);
-    router.get('/:id', gameController.getGamesById);
+    router.get('/:id', gameController.getGameById);
     router.get('/:id/players', gameController.getPlayersByGameId);
     router.get('/:id/trades', gameController.getTradesByGameId);
 

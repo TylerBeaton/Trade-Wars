@@ -36,7 +36,6 @@ describe('Trade Routes', () => {
         console.log("Reponse:", response.body);
         expect(response.body).to.be.an('array');
     });
-
     // Second test: create a new trade (POST)
     it("should create a new trade", async () => {
         const newTrade = {
@@ -67,7 +66,6 @@ describe('Trade Routes', () => {
         expect(response.body).to.have.property('isActive', true);
 
     });
-
     // Third test: get a trade by ID (GET)
     it("should return a trade by ID", async () => {
         const newTrade = {
@@ -104,7 +102,6 @@ describe('Trade Routes', () => {
         // This is intentionally hidden for clarity in public API responses
         expect(response.body).to.not.have.property('isActive');
     });
-
     // Fourth test: update a trade (PUT)
     it("should update a trade", async () => {
         const newTrade = {
@@ -152,7 +149,6 @@ describe('Trade Routes', () => {
         expect(updateResponse.body).to.have.property('description', 'Test trade using mocha, supertest, and chai.');
         expect(updateResponse.body).to.have.property('isActive');
     });
-
     // Fifth test: delete a trade (DELETE)
     it("should delete a trade", async () => {
         const newTrade = {

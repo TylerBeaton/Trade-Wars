@@ -5,27 +5,8 @@ import { User } from '../models/userModel';
 export default (game: typeof Game) => {
     return {
 
-        // GET /games
-        getGames: async (req: Request, res: Response) => {
-            try {
-                const games = await game.findAll();
-                res.json(games);
-            } catch (err) {
-                res.status(500).json({ error: 'Failed to fetch games' });
-            }
-        },
 
-        // GET /games/:id
-        getGamesById: async (req: Request, res: Response) => {
-            try {
-                const gameId = req.params.id;
-                const gameInstance = await game.findByPk(gameId);
-                res.json(gameInstance);
-            }
-            catch (err) {
-                res.status(500).json({ error: 'Failed to fetch game' });
-            }
-        },
+        // POST Player Operations //
 
         addPlayerToGame: async (req: Request, res: Response) => {
             try {
@@ -51,8 +32,6 @@ export default (game: typeof Game) => {
             }
         },
 
-        // Remove players from game
-
         removePlayerFromGame: async (req: Request, res: Response) => {
             try {
                 const gameId = req.params.id;
@@ -73,6 +52,19 @@ export default (game: typeof Game) => {
             catch (err) {
                 console.error('Error removing player from game:', err);
                 res.status(500).json({ error: 'Failed to remove player from the game' });
+            }
+        },
+
+        // Get by Id
+
+        getGameById: async (req: Request, res: Response) => {
+            try {
+                const gameId = req.params.id;
+                const gameInstance = await game.findByPk(gameId);
+                res.json(gameInstance);
+            }
+            catch (err) {
+                res.status(500).json({ error: 'Failed to fetch game' });
             }
         },
 
@@ -102,8 +94,9 @@ export default (game: typeof Game) => {
 
         },
 
+        // CRUD operations //
 
-        // POST /games
+        // POST /games (Create)
         createGame: async (req: Request, res: Response) => {
             try {
                 if (!req.body.name) return res.status(400).json({ error: 'name is required' });
@@ -115,7 +108,6 @@ export default (game: typeof Game) => {
                     maxPlayers: req.body.maxPlayers,
                     ownerId: req.body.ownerId,
                     isActive: req.body.isActive ?? true,
-
                 });
                 console.log('Created game:', instance.toJSON());
                 res.status(201).json(instance);
@@ -125,17 +117,27 @@ export default (game: typeof Game) => {
             }
         },
 
-        // Get the game being updated and set as default and replace any form submitted changes
-        // Do this for trades and players/users as well.
+        // GET /games (Read)
+        getGames: async (req: Request, res: Response) => {
+            try {
+                const games = await game.findAll();
+                res.json(games);
+            } catch (err) {
+                res.status(500).json({ error: 'Failed to fetch games' });
+            }
+        },
 
-        // PUT /game/:id
+        // PUT /game/:id (Update)
         updateGame: async (req: Request, res: Response) => {
             try {
                 // if (!req.body.name) return res.status(400).json({ error: 'name is required' });
 
                 await game.update(
                     {
-                        name: req.body.name
+                        name: req.body.name,
+                        description: req.body.description,
+                        maxPlayers: req.body.maxPlayers,
+                        isActive: req.body.isActive,
                     },
                     {
                         where: { id: req.params.id }
@@ -149,7 +151,7 @@ export default (game: typeof Game) => {
             }
         },
 
-        // DELETE /game/:id
+        // DELETE /game/:id (Delete)
         deleteGame: async (req: Request, res: Response) => {
             try {
                 const gameId = req.params.id;
