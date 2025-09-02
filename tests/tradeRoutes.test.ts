@@ -17,6 +17,7 @@ describe('Trade Routes', () => {
     it("should create a new trade", async () => {
         const newTrade = {
             ownerId: 1,
+            gameId: 1,
             stock: 'GOOG',
             price: 42.00,
             quantity: 100,
@@ -33,6 +34,7 @@ describe('Trade Routes', () => {
         console.log("Created trade:", response.body);
 
         expect(response.body).to.have.property('id');
+        expect(response.body).to.have.property('gameId');
         expect(response.body).to.have.property('stock', 'GOOG');
         expect(response.body).to.have.property('price', 42.00);
         expect(response.body).to.have.property('quantity', 100);
@@ -46,6 +48,7 @@ describe('Trade Routes', () => {
     it("should return a trade by ID", async () => {
         const newTrade = {
             ownerId: 1,
+            gameId: 1,
             stock: 'GOOG',
             price: 42.00,
             quantity: 100,
@@ -67,6 +70,7 @@ describe('Trade Routes', () => {
             .expect(200);
 
         expect(response.body).to.have.property('id');
+        expect(response.body).to.have.property('gameId');
         expect(response.body).to.have.property('stock', 'GOOG');
         expect(response.body).to.have.property('price', 42.00);
         expect(response.body).to.have.property('quantity', 100);
@@ -80,6 +84,7 @@ describe('Trade Routes', () => {
     it("should update a trade", async () => {
         const newTrade = {
             ownerId: 1,
+            gameId: 1,
             stock: 'GOOG',
             price: 42.00,
             quantity: 100,
@@ -113,6 +118,7 @@ describe('Trade Routes', () => {
 
         console.log("Updated trade: ", updateResponse.body);
         expect(updateResponse.body).to.have.property('id');
+        expect(updateResponse.body).to.have.property('gameId');
         expect(updateResponse.body).to.have.property('stock', 'GOOG');
         expect(updateResponse.body).to.have.property('price', 32.00);
         expect(updateResponse.body).to.have.property('quantity', 100);
@@ -125,6 +131,7 @@ describe('Trade Routes', () => {
     it("should delete a trade", async () => {
         const newTrade = {
             ownerId: 1,
+            gameId: 1,
             stock: 'GOOG',
             price: 42.00,
             quantity: 100,

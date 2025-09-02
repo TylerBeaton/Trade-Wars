@@ -51,6 +51,7 @@ describe('Trade Model', () => {
     it('should create a trade with valid data', async () => {
         const trade = await Trade.create({
             ownerId: 1,
+            gameId: 1,
             stock: 'GOOG',
             price: 42.00,
             quantity: 100,
@@ -61,6 +62,7 @@ describe('Trade Model', () => {
 
         expect(trade).to.have.property('id');
         expect(trade.ownerId).to.equal(1);
+        expect(trade.gameId).to.equal(1);
         expect(trade.stock).to.equal('GOOG');
         expect(trade.price).to.equal('42.00');
         expect(trade.quantity).to.equal(100);
