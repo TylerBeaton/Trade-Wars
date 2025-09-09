@@ -34,10 +34,10 @@ export default (user: typeof User) => {
                     firstName: req.body.firstName,
                     lastName: req.body.lastName,
                 });
-                console.log('Created user:', instance.toJSON());
+                // console.log('Created user:', instance.toJSON());
                 res.status(201).json(instance);
             } catch (err: any) {
-                console.error('Error creating user:', err);
+                // console.error('Error creating user:', err);
                 res.status(400).json({ error: err.message });
             }
         },
@@ -60,7 +60,7 @@ export default (user: typeof User) => {
                 const updatedUser = await user.findByPk(req.params.id);
                 res.json(updatedUser);
             } catch (err: any) {
-                console.error('Error updating user:', err);
+                // console.error('Error updating user:', err);
                 res.status(400).json({ error: err.message });
             }
         },
@@ -80,7 +80,7 @@ export default (user: typeof User) => {
                     res.status(404).json({ error: `User ${userId} not found` });
                 }
             } catch (err: any) {
-                console.error('Error deleting user:', err);
+                // console.error('Error deleting user:', err);
                 res.status(500).json({ error: err.message });
             }
         }

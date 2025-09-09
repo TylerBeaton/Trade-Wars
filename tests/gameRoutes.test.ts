@@ -103,7 +103,7 @@ describe('Game Routes', () => {
             .expect(201);
 
         const gameId = createResponse.body.id;
-        console.log('Created game for update (PUT) with id: ', gameId)
+        //console.log('Created game for update (PUT) with id: ', gameId)
 
         const updateData = {
             name: 'Test Game Renamed',
@@ -118,7 +118,7 @@ describe('Game Routes', () => {
             .send(updateData)
             .expect(200);
 
-        console.log("Updated game: ", updateResponse.body);
+        //console.log("Updated game: ", updateResponse.body);
         expect(updateResponse.body).to.have.property('id');
         expect(updateResponse.body).to.have.property('name', 'Test Game Renamed');
         expect(updateResponse.body).to.have.property('description', 'A game created during testing and updated');
@@ -142,20 +142,20 @@ describe('Game Routes', () => {
             .expect(201)
 
         const gameId = createResponse.body.id;
-        console.log('Created game for delete (DELETE) with id: ', gameId)
+        //console.log('Created game for delete (DELETE) with id: ', gameId)
 
         const deleteResponse = await request(app)
             .delete(`/api/games/${gameId}`)
             .expect(200);
 
-        console.log("Deleted game with ID:", gameId);
+        //console.log("Deleted game with ID:", gameId);
         expect(deleteResponse.body).to.have.property('message', `Game ${gameId} deleted`);
 
         const getResponse = await request(app)
             .get(`/api/games/${gameId}`)
             .expect(200);
 
-        console.log("Game after deletion: ", getResponse.body);
+        //console.log("Game after deletion: ", getResponse.body);
         expect(getResponse.body).to.be.null;
     })
 
@@ -168,14 +168,14 @@ describe('Game Routes', () => {
             .send({ userId: testUser.id })
             .expect(200);
 
-        console.log("Added player to game:", response.body);
+        //console.log("Added player to game:", response.body);
         expect(response.body).to.have.property('message', `User ${testUser.id} added to game ${testGame.id}`);
 
         const playersResponse = await request(app)
             .get(`/api/games/${testGame.id}/players`)
             .expect(200);
 
-        console.log("Players in game:", playersResponse.body);
+        //console.log("Players in game:", playersResponse.body);
         expect(playersResponse.body).to.be.an('array');
         expect(playersResponse.body).to.have.lengthOf(1);
         expect(playersResponse.body[0]).to.have.property('id', testUser.id);

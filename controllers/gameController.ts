@@ -1,10 +1,48 @@
 import { Request, Response } from 'express';
 import { Game } from '../models/gameModel';
 import { User } from '../models/userModel';
+import { Trade } from '../models/tradeModel';
 
 export default (game: typeof Game) => {
     return {
 
+        // POST Trade Operations //
+
+        TransactTradeForGame: async (req: Request, res: Response) => {
+            try {
+                const gameId = req.params.id;
+
+                const gameInstance = await game.findByPk(gameId);
+                if (!gameInstance) {
+                    return res.status(404).json({ error: `Game with ID ${gameId} not found` });
+                }
+
+                // Validation
+                if (!req.body.ownerId) return res.status(400).json({ error: 'ownerId is required' });
+                const tradeData = {
+                    ...req.body,
+                    gameId: gameId,
+                }
+
+                const instance = await Trade.create({
+                    ownerId: tradeData.ownerId,
+                    gameId: tradeData.gameId,
+                    stock: tradeData.stock,
+                    price: tradeData.price,
+                    quantity: tradeData.quantity,
+                    type: tradeData.type,
+                    description: tradeData.description,
+                    isActive: true,
+                });
+
+                res.status(201).json(instance);
+            }
+            catch (err: any) {
+                //console.error("Error creating trade for game:", err)
+                res.status(400).json({ error: err.message });
+            }
+
+        },
 
         // POST Player Operations //
 
@@ -27,7 +65,7 @@ export default (game: typeof Game) => {
 
             }
             catch (err) {
-                console.error('Error adding player to game:', err);
+                //console.error('Error adding player to game:', err);
                 res.status(500).json({ error: 'Failed to add player to the game' });
             }
         },
@@ -50,7 +88,7 @@ export default (game: typeof Game) => {
                 res.json({ message: `User ${userId} removed from game ${gameId}` });
             }
             catch (err) {
-                console.error('Error removing player from game:', err);
+                //console.error('Error removing player from game:', err);
                 res.status(500).json({ error: 'Failed to remove player from the game' });
             }
         },
@@ -85,7 +123,7 @@ export default (game: typeof Game) => {
 
             }
             catch (err) {
-                console.error('Error fetching players by game ID:', err);
+                //console.error('Error fetching players by game ID:', err);
                 res.status(500).json({ error: 'Failed to fetch players for the game' });
             }
         },
@@ -109,10 +147,10 @@ export default (game: typeof Game) => {
                     ownerId: req.body.ownerId,
                     isActive: req.body.isActive ?? true,
                 });
-                console.log('Created game:', instance.toJSON());
+                //console.log('Created game:', instance.toJSON());
                 res.status(201).json(instance);
             } catch (err: any) {
-                console.error('Error creating game:', err);
+                //console.error('Error creating game:', err);
                 res.status(400).json({ error: err.message });
             }
         },
@@ -146,7 +184,7 @@ export default (game: typeof Game) => {
                 const updatedGame = await game.findByPk(req.params.id);
                 res.json(updatedGame);
             } catch (err: any) {
-                console.error('Error updating game:', err);
+                //console.error('Error updating game:', err);
                 res.status(400).json({ error: err.message });
             }
         },
@@ -166,7 +204,7 @@ export default (game: typeof Game) => {
                     res.status(404).json({ error: `Game ${gameId} not found` });
                 }
             } catch (err: any) {
-                console.error('Error deleting game:', err);
+                //console.error('Error deleting game:', err);
                 res.status(500).json({ error: err.message });
             }
         }

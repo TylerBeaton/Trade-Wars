@@ -28,6 +28,7 @@ const sequelize = new Sequelize(
     {
         host: process.env.DB_HOST ?? 'localhost',
         dialect: 'postgres',
+        logging: process.env.NODE_ENV === 'test' ? false :console.log,
     }
 );
 
@@ -36,13 +37,13 @@ const models = initializeModels(sequelize);
 
 // Test the database connection
 sequelize.authenticate()
-    .then(() => console.log('Connected to PostgreSQL!'))
-    .catch(err => console.error('Connection error:', err));
+//    .then(() => console.log('Connected to PostgreSQL!'))
+//    .catch(err => console.error('Connection error:', err));
 
 // Sync models with the database
 sequelize.sync()
-    .then(() => console.log('Synced models to database'))
-    .catch(err => console.error('Sync error:', err));
+//    .then(() => console.log('Synced models to database'))
+//    .catch(err => console.error('Sync error:', err));
 
 // Create an Express application
 var app = express();
@@ -52,11 +53,14 @@ app.set('views', path.join(PROJECT_ROOT, 'views'));
 app.set('view engine', 'pug');
 
 // Middleware setup
-app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(PROJECT_ROOT, 'public')));
+// Only use morgan in non-test environments
+if (process.env.NODE_ENV !== 'test') {
+    app.use(logger('dev'));
+}
 
 // Set up routes
 app.use('/', indexRouter);

@@ -39,7 +39,7 @@ export default (sequelize: Sequelize) => {
             }
         },
         price: {
-            type: DataTypes.DECIMAL(10, 2),
+            type: DataTypes.FLOAT,
             allowNull: false,
             validate: {
                 min: 0.01

@@ -9,7 +9,7 @@ describe('User Routes', () => {
         const response = await request(app)
             .get('/api/users')
             .expect(200);
-        console.log("Reponse:", response.body);
+        //console.log("Reponse:", response.body);
         expect(response.body).to.be.an('array');
     });
 
@@ -25,7 +25,7 @@ describe('User Routes', () => {
             .send(newUser)
             .expect(201);
 
-        console.log("Created user:", response.body);
+        //console.log("Created user:", response.body);
 
         expect(response.body).to.have.property('id');
         expect(response.body).to.have.property('firstName', 'mochaTest');
@@ -45,13 +45,13 @@ describe('User Routes', () => {
             .expect(201);
 
         const userId = createReponse.body.id;
-        console.log("Created user with ID:", userId);
+        //console.log("Created user with ID:", userId);
 
         const getResponse = await request(app)
             .get(`/api/users/${userId}`)
             .expect(200);
 
-        console.log("Found user:", getResponse.body);
+        //console.log("Found user:", getResponse.body);
         expect(getResponse.body).to.have.property('id', userId);
         expect(getResponse.body).to.have.property('firstName', 'expresso');
         expect(getResponse.body).to.have.property('lastName', 'pekoe');
@@ -70,7 +70,7 @@ describe('User Routes', () => {
             .expect(201);
 
         const userId = createResponse.body.id;
-        console.log('Created user for update (PUT) with id: ', userId)
+        //console.log('Created user for update (PUT) with id: ', userId)
 
         const updateData = {
             firstName: 'updated',
@@ -82,7 +82,7 @@ describe('User Routes', () => {
             .send(updateData)
             .expect(200);
 
-        console.log("Updated user: ", updateResponse.body);
+        //console.log("Updated user: ", updateResponse.body);
         expect(updateResponse.body).to.have.property('id', userId);
         expect(updateResponse.body).to.have.property('firstName', 'updated');
         expect(updateResponse.body).to.have.property('lastName', 'user');
@@ -101,20 +101,20 @@ describe('User Routes', () => {
             .expect(201)
 
         const userId = createResponse.body.id;
-        console.log('Created user for delete (DELETE) with id: ', userId)
+        //console.log('Created user for delete (DELETE) with id: ', userId)
 
         const deleteResponse = await request(app)
             .delete(`/api/users/${userId}`)
             .expect(200);
 
-        console.log("Deleted user with ID:", userId);
+        //console.log("Deleted user with ID:", userId);
         expect(deleteResponse.body).to.have.property('message', `User ${userId} deleted`);
 
         const getResponse = await request(app)
             .get(`/api/users/${userId}`)
             .expect(200);
 
-        console.log("User after deletion: ", getResponse.body);
+        //console.log("User after deletion: ", getResponse.body);
         expect(getResponse.body).to.be.null;
     })
 });
