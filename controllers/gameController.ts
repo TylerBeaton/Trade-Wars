@@ -129,7 +129,19 @@ export default (game: typeof Game) => {
         },
 
         getTradesByGameId: async (req: Request, res: Response) => {
+            try {
+                const gameId = req.params.id;
 
+                const trades = await Trade.findAll({
+                    where: { gameId: gameId }
+                });
+
+                res.json(trades);
+            }
+            catch (err: any) {
+                //console.error('Error fetching trades by game ID:', err);
+                res.status(500).json({ error: 'Failed to fetch trades for the game' });
+            }
         },
 
         // CRUD operations //
