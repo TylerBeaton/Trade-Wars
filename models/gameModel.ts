@@ -1,6 +1,6 @@
 import { DataTypes, Model, Sequelize, Association } from 'sequelize';
 import { GameAttributes } from '../interfaces/gameAttributes';
-import { User } from './userModel';
+import { Player } from './playerModel';
 export class Game extends Model<GameAttributes> implements GameAttributes {
     id?: number;
     name!: string;
@@ -8,14 +8,15 @@ export class Game extends Model<GameAttributes> implements GameAttributes {
     maxPlayers!: number;
 
     ownerId!: number;
+    startingBalance!: number;
 
     createdAt!: Date;
     updatedAt?: Date;
     isActive!: boolean;
-    players?: User[];
+    players?: Player[];
 
-    addPlayer!: (user: User) => Promise<void>;
-    removePlayer!: (userId: number) => Promise<void>;
+    addPlayer!: (player: Player) => Promise<void>;
+    removePlayer!: (playerId: number) => Promise<void>;
 
     // Add other associations like remove, set, get, has...etc
 
@@ -32,7 +33,7 @@ export class Game extends Model<GameAttributes> implements GameAttributes {
     // countPlayers?
 
     static associations: {
-        players: Association<Game, User>;
+        players: Association<Game, Player>;
     };
 
 }
@@ -71,7 +72,15 @@ export default (sequelize: Sequelize) => {
         ownerId: {
             type: DataTypes.INTEGER,
             allowNull: false
-        }, 
+        },
+        startingBalance: {
+            type: DataTypes.DECIMAL(10, 2),
+            allowNull: false,
+            defaultValue: 10000.00,
+            validate: {
+                min: 0
+            }
+        },
         isActive: {
             type: DataTypes.BOOLEAN,
             defaultValue: true,

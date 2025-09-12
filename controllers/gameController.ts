@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import { Game } from '../models/gameModel';
 import { User } from '../models/userModel';
 import { Trade } from '../models/tradeModel';
+import { Player } from '../models/playerModel';
 
 export default (game: typeof Game) => {
     return {
@@ -60,12 +61,21 @@ export default (game: typeof Game) => {
                     return res.status(404).json({ error: `Game with ID ${gameId} not found` });
                 }
 
-                await gameInstance.addPlayer(userId);
-                res.json({ message: `User ${userId} added to game ${gameId}` });
+                const player = await Player.create({
+                    gameId: parseInt(gameId),
+                    userId: userId,
+                    balance: gameInstance.startingBalance,
+                })
+
+                // await gameInstance.addPlayer(userId);
+                res.status(201).json({
+                    message: `User ${player.id} added to game ${gameId}`,
+                    player: player
+                });
 
             }
             catch (err) {
-                //console.error('Error adding player to game:', err);
+                console.error('Error adding player to game:', err);
                 res.status(500).json({ error: 'Failed to add player to the game' });
             }
         },
@@ -73,10 +83,10 @@ export default (game: typeof Game) => {
         removePlayerFromGame: async (req: Request, res: Response) => {
             try {
                 const gameId = req.params.id;
-                const { userId } = req.body;
+                const { playerId } = req.body;
 
-                if (!userId) {
-                    return res.status(400).json({ error: 'userId is required' });
+                if (!playerId) {
+                    return res.status(400).json({ error: 'playerId is required' });
                 }
 
                 const gameInstance = await game.findByPk(gameId);
@@ -84,8 +94,8 @@ export default (game: typeof Game) => {
                     return res.status(404).json({ error: `Game with ID ${gameId} not found` });
                 }
 
-                await gameInstance.removePlayer(userId);
-                res.json({ message: `User ${userId} removed from game ${gameId}` });
+                await gameInstance.removePlayer(playerId);
+                res.json({ message: `Player ${playerId} removed from game ${gameId}` });
             }
             catch (err) {
                 //console.error('Error removing player from game:', err);
@@ -109,23 +119,50 @@ export default (game: typeof Game) => {
         getPlayersByGameId: async (req: Request, res: Response) => {
             try {
                 const gameId = req.params.id;
-                const gameInstance = await game.findByPk(gameId, {
-                    include: [{
-                        association: 'players',
-                        attributes: ['id', 'firstName', 'lastName']
-                    }]
-                });
+                const players = await Player.findAll({
+                    where: { gameId: gameId },
+                    attributes: ['id', 'userId', 'balance'],
+                })
 
-                if (!gameInstance) {
-                    return res.status(404).json({ error: `Game with ID ${gameId} not found` });
+                if (!players) {
+                    return res.status(404).json({ error: `No players found for game with ID ${gameId}` });
                 }
-                return res.json(gameInstance.players);
+                return res.json(players);
 
             }
             catch (err) {
                 //console.error('Error fetching players by game ID:', err);
                 res.status(500).json({ error: 'Failed to fetch players for the game' });
             }
+        },
+
+        getPlayerInGameById: async (req: Request, res: Response) => {
+            try {
+                const gameId = req.params.id;
+                const playerId = req.params.playerId;
+                const gameInstance = await game.findByPk(gameId);
+                if (!gameInstance) {
+                    return res.status(404).json({ error: `Game with ID ${gameId} not found` });
+                }
+
+                const player = await Player.findOne({
+                    where: {
+                        id: playerId,
+                        gameId: gameId
+                    }
+                })
+
+                if (!player) {
+                    return res.status(404).json({ error: `Player with ID ${playerId} not found in game ${gameId}` });
+                }
+
+                return res.json(player);
+            }
+            catch (err: any) {
+                console.error('Error fetching player by ID:', err);
+                res.status(500).json({ error: 'Failed to fetch player', details: err.message });
+            }
+
         },
 
         getTradesByGameId: async (req: Request, res: Response) => {
@@ -157,6 +194,7 @@ export default (game: typeof Game) => {
                     description: req.body.description,
                     maxPlayers: req.body.maxPlayers,
                     ownerId: req.body.ownerId,
+                    startingBalance: req.body.startingBalance ?? 10000.00,
                     isActive: req.body.isActive ?? true,
                 });
                 //console.log('Created game:', instance.toJSON());
