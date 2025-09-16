@@ -83,6 +83,21 @@ export default (game: typeof Game) => {
                     });
                 }
 
+                const existingPlayer = await Player.findOne({
+                    where: {
+                        gameId: gameId,
+                        userId: userId
+                    },
+                    transaction
+                });
+
+                if (existingPlayer) {
+                    await transaction.rollback();
+                    return res.status(400).json({
+                        error: `User ${userId} is already a player in game ${gameId}`,
+                    });
+                }
+
                 const player = await Player.create({
                     gameId: parseInt(gameId),
                     userId: userId,

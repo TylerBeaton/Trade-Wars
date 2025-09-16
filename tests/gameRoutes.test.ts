@@ -271,6 +271,28 @@ describe('Game Routes', () => {
 
     })
 
+    it("should not add the same player twice to a game", async () => {
+        const testUser = await createTestUser();
+        const testGame = await createTestGame(testUser.id);
+
+        const user1 = await models.User.create({
+            firstName: "Chai",
+            lastName: "Tea",
+        });
+
+        const firstResponse = await request(app)
+            .post(`/api/games/${testGame.id}/players`)
+            .send({ userId: user1.id })
+            .expect(201);
+
+        const secondResponse = await request(app)
+            .post(`/api/games/${testGame.id}/players`)
+            .send({ userId: user1.id });
+
+        expect(secondResponse.status).to.equal(400);
+        expect(secondResponse.body).to.have.property('error', `User ${user1.id} is already a player in game ${testGame.id}`);
+    })
+
     it("should create a game, add players and create trades", async () => {
 
         const testUser = await createTestUser();
