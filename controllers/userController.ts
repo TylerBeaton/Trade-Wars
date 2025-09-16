@@ -27,15 +27,32 @@ export default (user: typeof User) => {
 
         // POST /users
         createUser: async (req: Request, res: Response) => {
+            const transaction = await user.sequelize!.transaction();
+
             try {
-                if (!req.body.firstName)    return res.status(400).json({ error: 'firstName is required' });
-                if (!req.body.lastName)     return res.status(400).json({ error: 'lastName is required' });
-                const instance = await user.create({
+                if (!req.body.firstName) {
+                    await transaction.rollback();
+                    return res.status(400).json({
+                        error: 'firstName is required'
+                    })
+                };
+
+                if (!req.body.lastName) {
+                    await transaction.rollback();
+                    return res.status(400).json({
+                        error: 'lastName is required'
+                    });
+                };
+
+                const userInstance = await user.create({
                     firstName: req.body.firstName,
                     lastName: req.body.lastName,
-                });
-                // console.log('Created user:', instance.toJSON());
-                res.status(201).json(instance);
+                }, { transaction }
+                );
+
+                await transaction.commit();
+                res.status(201).json(userInstance);
+
             } catch (err: any) {
                 // console.error('Error creating user:', err);
                 res.status(400).json({ error: err.message });
@@ -44,8 +61,11 @@ export default (user: typeof User) => {
 
         // PUT /users/:id
         updateUser: async (req: Request, res: Response) => {
+            const transaction = await user.sequelize!.transaction();
+
             try {
                 if (!req.body.firstName || !req.body.lastName) {
+                    await transaction.rollback();
                     return res.status(400).json({ error: 'firstName and lastName are required' });
                 }
                 await user.update(
@@ -54,26 +74,30 @@ export default (user: typeof User) => {
                         lastName: req.body.lastName,
                     },
                     {
-                        where: { id: req.params.id }
-                    }
+                        where: { id: req.params.id },
+                        transaction
+                    },
                 );
+                await transaction.commit();
                 const updatedUser = await user.findByPk(req.params.id);
                 res.json(updatedUser);
             } catch (err: any) {
-                // console.error('Error updating user:', err);
                 res.status(400).json({ error: err.message });
             }
         },
 
         // DELETE /users/:id
         deleteUser: async (req: Request, res: Response) => {
+            const transaction = await user.sequelize!.transaction();
             try {
                 const userId = req.params.id;
                 const deletedUser = await user.destroy({
-                    where: { id: userId }
+                    where: { id: userId },
+                    transaction
                 });
 
                 if (deletedUser) {
+                    await transaction.commit();
                     res.json({ message: `User ${userId} deleted` });
                 }
                 else {
