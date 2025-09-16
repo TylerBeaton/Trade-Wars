@@ -54,26 +54,42 @@ export default (game: typeof Game) => {
         // POST Player Operations //
 
         addPlayerToGame: async (req: Request, res: Response) => {
-            // const transaction = await Player.sequelize!.transaction();
+            const transaction = await Player.sequelize!.transaction();
 
             try {
                 const gameId = req.params.id;
                 const { userId } = req.body;
 
                 if (!userId) {
+                    await transaction.rollback();
                     return res.status(400).json({ error: 'userId is required' });
                 }
 
                 const gameInstance = await game.findByPk(gameId);
                 if (!gameInstance) {
+                    await transaction.rollback();
                     return res.status(404).json({ error: `Game with ID ${gameId} not found` });
+                }
+
+                const currentPlayerCount = await Player.count({
+                    where: { gameId: gameId },
+                    transaction
+                });
+
+                if (currentPlayerCount >= gameInstance.maxPlayers) {
+                    await transaction.rollback();
+                    return res.status(400).json({
+                        error: 'Game is full',
+                    });
                 }
 
                 const player = await Player.create({
                     gameId: parseInt(gameId),
                     userId: userId,
                     balance: gameInstance.startingBalance,
-                })
+                }, { transaction });
+
+                await transaction.commit();
 
                 // await gameInstance.addPlayer(userId);
                 res.status(201).json({
@@ -83,6 +99,7 @@ export default (game: typeof Game) => {
 
             }
             catch (err) {
+                await transaction.rollback();
                 console.error('Error adding player to game:', err);
                 res.status(500).json({ error: 'Failed to add player to the game' });
             }

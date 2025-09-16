@@ -242,6 +242,35 @@ describe('Game Routes', () => {
 
     })
 
+    it("should not add a player to a full game", async () => {
+        const testUser = await createTestUser();
+        const testGame = await createTestGame(testUser.id);
+
+        for(let i = 0; i < testGame.maxPlayers; i++) {
+            const user = await models.User.create({
+                firstName: `Player${i}`,
+                lastName: `Test${i}`,
+            });
+            await request(app)
+                .post(`/api/games/${testGame.id}/players`)
+                .send({ userId: user.id })
+                .expect(201);
+        }
+
+        const extraUser = await models.User.create({
+            firstName: "Extra",
+            lastName: "Player",
+        });
+
+        const failureResponse = await request(app)
+            .post(`/api/games/${testGame.id}/players`)
+            .send({ userId: extraUser.id })
+
+        expect(failureResponse.status).to.equal(400);
+        expect(failureResponse.body).to.have.property('error', 'Game is full');
+
+    })
+
     it("should create a game, add players and create trades", async () => {
 
         const testUser = await createTestUser();
