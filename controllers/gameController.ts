@@ -9,17 +9,23 @@ export default (game: typeof Game) => {
 
         // POST Trade Operations //
 
-        TransactTradeForGame: async (req: Request, res: Response) => {
+        transactTradeForGame: async (req: Request, res: Response) => {
+
             try {
                 const gameId = req.params.id;
 
                 const gameInstance = await game.findByPk(gameId);
+
+
                 if (!gameInstance) {
                     return res.status(404).json({ error: `Game with ID ${gameId} not found` });
                 }
 
                 // Validation
                 if (!req.body.ownerId) return res.status(400).json({ error: 'ownerId is required' });
+
+                
+
                 const tradeData = {
                     ...req.body,
                     gameId: gameId,
@@ -48,6 +54,8 @@ export default (game: typeof Game) => {
         // POST Player Operations //
 
         addPlayerToGame: async (req: Request, res: Response) => {
+            // const transaction = await Player.sequelize!.transaction();
+
             try {
                 const gameId = req.params.id;
                 const { userId } = req.body;
@@ -173,7 +181,7 @@ export default (game: typeof Game) => {
                     where: { gameId: gameId }
                 });
 
-                res.json(trades);
+                res.status(200).json(trades);
             }
             catch (err: any) {
                 //console.error('Error fetching trades by game ID:', err);

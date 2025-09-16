@@ -242,94 +242,94 @@ describe('Game Routes', () => {
 
     })
 
-    //it("should create a game, add players and create trades", async () => {
+    it("should create a game, add players and create trades", async () => {
 
-    //    const testUser = await createTestUser();
-    //    const testGame = await createTestGame(testUser.id);
+        const testUser = await createTestUser();
+        const testGame = await createTestGame(testUser.id);
 
-    //    const user1 = await models.User.create({
-    //        firstName: "Chai",
-    //        lastName: "Tea",
-    //    });
-    //    const user2 = await models.User.create({
-    //        firstName: "Mocha",
-    //        lastName: "Coffee",
-    //    });
-    //    const user3 = await models.User.create({
-    //        firstName: "Latte",
-    //        lastName: "Milk",
-    //    });
+        const user1 = await models.User.create({
+            firstName: "Chai",
+            lastName: "Tea",
+        });
+        const user2 = await models.User.create({
+            firstName: "Mocha",
+            lastName: "Coffee",
+        });
+        const user3 = await models.User.create({
+            firstName: "Latte",
+            lastName: "Milk",
+        });
 
-    //    await request(app)
-    //        .post(`/api/games/${testGame.id}/players`)
-    //        .send({ userId: user1.id })
-    //        .expect(200);
-    //    await request(app)
-    //        .post(`/api/games/${testGame.id}/players`)
-    //        .send({ userId: user2.id })
-    //        .expect(200);
-    //    await request(app)
-    //        .post(`/api/games/${testGame.id}/players`)
-    //        .send({ userId: user3.id })
-    //        .expect(200);
+        const player1Response = await request(app)
+            .post(`/api/games/${testGame.id}/players`)
+            .send({ userId: user1.id })
+            .expect(201);
+        const player2Response = await request(app)
+            .post(`/api/games/${testGame.id}/players`)
+            .send({ userId: user2.id })
+            .expect(201);
+        const player3Response = await request(app)
+            .post(`/api/games/${testGame.id}/players`)
+            .send({ userId: user3.id })
+            .expect(201);
 
-    //    const trade1Data = {
-    //        ownerId: user1.id,
-    //        gameId: testGame.id,
-    //        stock: 'AAPL',
-    //        price: 150.00,
-    //        quantity: 100,
-    //        type: 'buy',
-    //        description: "Chai's first trade for AAPL.",
-    //        isActive: true
-    //    }
+        const trade1Data = {
+            ownerId: player1Response.body.player.id,
+            gameId: testGame.id,
+            stock: 'AAPL',
+            price: 150.00,
+            quantity: 100,
+            type: 'buy',
+            description: "Chai's first trade for AAPL.",
+            isActive: true
+        }
 
-    //    const trade2Data = {
-    //        ownerId: user2.id,
-    //        gameId: testGame.id,
-    //        stock: 'GOGL',
-    //        price: 321.00,
-    //        quantity: 50,
-    //        type: 'buy',
-    //        description: "Mocha's first trade for AAPL.",
-    //        isActive: true
-    //    }
+        const trade2Data = {
+            ownerId: player2Response.body.player.id,
+            gameId: testGame.id,
+            stock: 'GOGL',
+            price: 321.00,
+            quantity: 50,
+            type: 'buy',
+            description: "Mocha's first trade for AAPL.",
+            isActive: true
+        }
 
-    //    const trade3Data = {
-    //        ownerId: user3.id,
-    //        gameId: testGame.id,
-    //        stock: 'TSLA',
-    //        price: 200.00,
-    //        quantity: 65,
-    //        type: 'buy',
-    //        description: "Latte's first trade for AAPL.",
-    //        isActive: true
-    //    }
+        const trade3Data = {
+            ownerId: player3Response.body.player.id,
+            gameId: testGame.id,
+            stock: 'GOGL',
+            price: 321.00,
+            quantity: 50,
+            type: 'buy',
+            description: "Mocha's first trade for AAPL.",
+            isActive: true
+        }
 
-    //    const trade1Response = await request(app)
-    //        .post(`/api/games/${testGame.id}/trades`)
-    //        .send(trade1Data)
-    //        .expect(201)
+        const trade1Response = await request(app)
+            .post(`/api/games/${testGame.id}/trades`)
+            .send(trade1Data)
+            .expect(201)
 
-    //    const trade2Response = await request(app)
-    //        .post(`/api/games/${testGame.id}/trades`)
-    //        .send(trade2Data)
-    //        .expect(201)
+        const trade2Response = await request(app)
+            .post(`/api/games/${testGame.id}/trades`)
+            .send(trade2Data)
+            .expect(201)
 
-    //    const trade3Response = await request(app)
-    //        .post(`/api/games/${testGame.id}/trades`)
-    //        .send(trade3Data)
-    //        .expect(201)
+        const trade3Response = await request(app)
+            .post(`/api/games/${testGame.id}/trades`)
+            .send(trade3Data)
+            .expect(201)
 
-    //    const tradesResponse = await request(app)
-    //        .get(`/api/games/${testGame.id}/trades`)
-    //        .expect(200)
+        //const tradesResponse = await request(app)
+        //    .get(`/api/games/${testGame.id}/trades`)
+        //    .expect(200)
 
-    //    expect(tradesResponse.body).to.be.an('array');
-    //    expect(tradesResponse.body).to.have.lengthOf(3);
+        //expect(tradesResponse.body).to.be.an('array');
+        //expect(tradesResponse.body).to.have.lengthOf(3);
 
-    //    // console.log("Trades in game:", tradesResponse.body);
+        // console.log("Trades in game:", tradesResponse.body);
 
 
-    //})
+    })
 })

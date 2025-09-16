@@ -14,7 +14,7 @@ export const gameRouter = (game: typeof Game) => {
 
     router.post('/', gameController.createGame);
     router.post('/:id/players', gameController.addPlayerToGame)
-    router.post('/:id/trades', gameController.TransactTradeForGame)
+    router.post('/:id/trades', gameController.transactTradeForGame)
 
     router.put('/:id', gameController.updateGame);
     router.delete('/:id', gameController.deleteGame);
