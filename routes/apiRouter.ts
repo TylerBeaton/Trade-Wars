@@ -9,8 +9,6 @@ const router = Router();
 // Mount routes with /api prefix
 
 router.use('/users', userRouter(User));
-router.use('/games', gameRouter(Game))
-
-
+router.use('/games', gameRouter(Game));
 
 export default router;

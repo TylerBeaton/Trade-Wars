@@ -6,7 +6,7 @@ const router = Router();
 
 // Change to login page or dashboard?
 router.get('/', function (req: Request, res: Response, next: NextFunction) {
-    res.render('index', { title: 'Express' });
+  res.render('index', { title: 'Express' });
 });
 
 export default router;

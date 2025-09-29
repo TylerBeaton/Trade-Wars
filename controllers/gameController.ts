@@ -24,7 +24,7 @@ export default (game: typeof Game) => {
                 // Validation
                 if (!req.body.ownerId) return res.status(400).json({ error: 'ownerId is required' });
 
-                
+
 
                 const tradeData = {
                     ...req.body,
@@ -107,7 +107,7 @@ export default (game: typeof Game) => {
                 await transaction.commit();
 
                 const playerPlain = player.get({ plain: true }) as any;
-                if(typeof playerPlain.balance === 'string') {
+                if (typeof playerPlain.balance === 'string') {
                     playerPlain.balance = parseFloat(playerPlain.balance);
                 }
 
