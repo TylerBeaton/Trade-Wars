@@ -106,6 +106,11 @@ export default (game: typeof Game) => {
 
                 await transaction.commit();
 
+                const playerPlain = player.get({ plain: true }) as any;
+                if(typeof playerPlain.balance === 'string') {
+                    playerPlain.balance = parseFloat(playerPlain.balance);
+                }
+
                 // await gameInstance.addPlayer(userId);
                 res.status(201).json({
                     message: `User ${player.id} added to game ${gameId}`,
@@ -234,7 +239,7 @@ export default (game: typeof Game) => {
                     description: req.body.description,
                     maxPlayers: req.body.maxPlayers,
                     ownerId: req.body.ownerId,
-                    startingBalance: req.body.startingBalance ?? 10000.00,
+                    startingBalance: req.body.startingBalance ?? 10000,
                     isActive: req.body.isActive ?? true,
                 });
                 //console.log('Created game:', instance.toJSON());

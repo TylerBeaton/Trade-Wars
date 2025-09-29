@@ -174,7 +174,6 @@ describe('Game Routes', () => {
 
     // Player Tests for /api/games
 
-    // Add Player
     it("should add a player to a game", async () => {
 
         const testUser = await createTestUser();
@@ -372,15 +371,18 @@ describe('Game Routes', () => {
             .send(trade3Data)
             .expect(201)
 
-        //const tradesResponse = await request(app)
-        //    .get(`/api/games/${testGame.id}/trades`)
-        //    .expect(200)
+        const tradesResponse = await request(app)
+            .get(`/api/games/${testGame.id}/trades`)
+            .expect(200)
 
-        //expect(tradesResponse.body).to.be.an('array');
-        //expect(tradesResponse.body).to.have.lengthOf(3);
+        expect(tradesResponse.body).to.be.an('array');
+        expect(tradesResponse.body).to.have.lengthOf(3);
 
         // console.log("Trades in game:", tradesResponse.body);
-
-
     })
+
+    it("should declare a winner for a game", async () => {
+        
+    })
+
 })

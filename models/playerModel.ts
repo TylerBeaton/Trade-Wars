@@ -26,6 +26,10 @@ export default (sequelize: Sequelize) => {
         balance: {
             type: DataTypes.DECIMAL(10, 2),
             allowNull: false,
+            get(this: any) {
+                const raw = this.getDataValue('balance');
+                return raw === null ? null : parseFloat(String(raw));
+            },
             defaultValue: 0,
             validate: {
                 min: 0,
