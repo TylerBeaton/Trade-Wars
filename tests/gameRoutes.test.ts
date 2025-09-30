@@ -228,8 +228,6 @@ describe('Game Routes', () => {
     expect(playerResponse.body.balance).to.equal(testGame.startingBalance);
   });
 
-  //it("should create a game, and add players", async () => {
-
   it('should create a game, add players and list players', async () => {
     const testUser = await createTestUser();
 
