@@ -17,6 +17,7 @@ describe('Game Routes', () => {
       ownerId: ownerId,
       startingBalance: 10000.0,
       isActive: true,
+      endsAt: new Date(1999, 11, 31),
     });
 
   const createTestPlayer = async (
@@ -56,6 +57,7 @@ describe('Game Routes', () => {
       maxPlayers: 4,
       ownerId: testUser.id,
       isActive: true,
+      endsAt: new Date(1999, 11, 31),
     };
 
     const response = await request(app)
@@ -84,6 +86,7 @@ describe('Game Routes', () => {
       maxPlayers: 4,
       ownerId: testUser.id,
       isActive: true,
+      endsAt: new Date(1999, 11, 31),
     };
 
     const createReponse = await request(app)
@@ -112,6 +115,7 @@ describe('Game Routes', () => {
       maxPlayers: 4,
       ownerId: testUser.id,
       isActive: true,
+      endsAt: new Date(1999, 11, 31),
     };
 
     const createResponse = await request(app)
@@ -127,6 +131,7 @@ describe('Game Routes', () => {
       maxPlayers: 4,
       ownerId: testUser.id,
       isActive: true,
+      endsAt: new Date(1999, 11, 31),
     };
 
     const updateResponse = await request(app)
@@ -161,6 +166,7 @@ describe('Game Routes', () => {
       maxPlayers: 4,
       ownerId: testUser.id,
       isActive: true,
+      endsAt: new Date(1999, 11, 31),
     };
 
     const createResponse = await request(app)
@@ -347,33 +353,33 @@ describe('Game Routes', () => {
       .expect(201);
 
     const trade1Data = {
-      ownerId: player1Response.body.player.id,
+      ownerId: user1.id,
       gameId: testGame.id,
       stock: 'AAPL',
       price: 150.0,
-      quantity: 100,
+      quantity: 10,
       type: 'buy',
       description: "Chai's first trade for AAPL.",
       isActive: true,
     };
 
     const trade2Data = {
-      ownerId: player2Response.body.player.id,
+      ownerId: user2.id,
       gameId: testGame.id,
       stock: 'GOGL',
       price: 321.0,
-      quantity: 50,
+      quantity: 10,
       type: 'buy',
       description: "Mocha's first trade for AAPL.",
       isActive: true,
     };
 
     const trade3Data = {
-      ownerId: player3Response.body.player.id,
+      ownerId: user3.id,
       gameId: testGame.id,
       stock: 'GOGL',
       price: 321.0,
-      quantity: 50,
+      quantity: 10,
       type: 'buy',
       description: "Mocha's first trade for AAPL.",
       isActive: true,
@@ -401,8 +407,133 @@ describe('Game Routes', () => {
     expect(tradesResponse.body).to.be.an('array');
     expect(tradesResponse.body).to.have.lengthOf(3);
 
-    // console.log("Trades in game:", tradesResponse.body);
+    const playersResponse = await request(app)
+      .get(`/api/games/${testGame.id}/players`)
+      .expect(200);
   });
 
-  it('should declare a winner for a game', async () => {});
+  it('should declare a winner for a game', async () => {
+    const testUser = await createTestUser();
+    const testGame = await createTestGame(testUser.id);
+
+    const user1 = await models.User.create({
+      firstName: 'Chai',
+      lastName: 'Tea',
+    });
+    const user2 = await models.User.create({
+      firstName: 'Mocha',
+      lastName: 'Coffee',
+    });
+    const user3 = await models.User.create({
+      firstName: 'Latte',
+      lastName: 'Milk',
+    });
+
+    const player1Response = await request(app)
+      .post(`/api/games/${testGame.id}/players`)
+      .send({ userId: user1.id })
+      .expect(201);
+    const player2Response = await request(app)
+      .post(`/api/games/${testGame.id}/players`)
+      .send({ userId: user2.id })
+      .expect(201);
+    const player3Response = await request(app)
+      .post(`/api/games/${testGame.id}/players`)
+      .send({ userId: user3.id })
+      .expect(201);
+
+    const trade1Data = {
+      ownerId: user1.id,
+      gameId: testGame.id,
+      stock: 'AAPL',
+      price: 150.0,
+      quantity: 10,
+      type: 'buy',
+      description: "Chai's first trade for AAPL.",
+      isActive: true,
+    };
+
+    const trade2Data = {
+      ownerId: user2.id,
+      gameId: testGame.id,
+      stock: 'GOGL',
+      price: 321.0,
+      quantity: 10,
+      type: 'buy',
+      description: "Mocha's first trade for AAPL.",
+      isActive: true,
+    };
+
+    const trade3Data = {
+      ownerId: user3.id,
+      gameId: testGame.id,
+      stock: 'GOGL',
+      price: 50.0,
+      quantity: 10,
+      type: 'buy',
+      description: "Mocha's first trade for AAPL.",
+      isActive: true,
+    };
+
+    const trade1Response = await request(app)
+      .post(`/api/games/${testGame.id}/trades`)
+      .send(trade1Data)
+      .expect(201);
+
+    const trade2Response = await request(app)
+      .post(`/api/games/${testGame.id}/trades`)
+      .send(trade2Data)
+      .expect(201);
+
+    const trade3Response = await request(app)
+      .post(`/api/games/${testGame.id}/trades`)
+      .send(trade3Data)
+      .expect(201);
+
+    const playersResponse = await request(app)
+      .get(`/api/games/${testGame.id}/players`)
+      .expect(200);
+
+    const winnerResponse = await request(app)
+      .post(`/api/games/${testGame.id}/winner`)
+      .expect(200);
+
+    expect(winnerResponse.body).to.have.property('winner');
+  });
+
+  it('should attempt to make a trade with insufficient funds', async () => {
+    const testUser = await createTestUser();
+    const testGame = await createTestGame(testUser.id);
+
+    const user1 = await models.User.create({
+      firstName: 'Chai',
+      lastName: 'Tea',
+    });
+
+    const player1Response = await request(app)
+      .post(`/api/games/${testGame.id}/players`)
+      .send({ userId: user1.id })
+      .expect(201);
+
+    const trade1Data = {
+      ownerId: user1.id,
+      gameId: testGame.id,
+      stock: 'AAPL',
+      price: 150.0,
+      quantity: 500,
+      type: 'buy',
+      description: "Chai's first trade for AAPL.",
+      isActive: true,
+    };
+
+    const trade1FailedResponse = await request(app)
+      .post(`/api/games/${testGame.id}/trades`)
+      .send(trade1Data)
+      .expect(400);
+
+    expect(trade1FailedResponse.body).to.have.property(
+      'error',
+      `Insufficient balance. Player balance: ${player1Response.body.player.balance}, Trade cost: ${trade1Data.price * trade1Data.quantity}`
+    );
+  });
 });

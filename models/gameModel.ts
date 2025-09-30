@@ -13,7 +13,9 @@ export class Game extends Model<GameAttributes> implements GameAttributes {
   createdAt!: Date;
   updatedAt?: Date;
   isActive!: boolean;
+  endsAt!: Date;
   players?: Player[];
+  winner?: number;
 
   addPlayer!: (player: Player) => Promise<void>;
   removePlayer!: (playerId: number) => Promise<void>;
@@ -86,6 +88,10 @@ export default (sequelize: Sequelize) => {
       isActive: {
         type: DataTypes.BOOLEAN,
         defaultValue: true,
+      },
+      endsAt: {
+        type: DataTypes.DATE,
+        allowNull: false,
       },
     },
     {

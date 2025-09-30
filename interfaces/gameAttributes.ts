@@ -6,4 +6,6 @@ export interface GameAttributes {
   ownerId: number;
   startingBalance: number;
   isActive: boolean;
+  endsAt: Date;
+  winner?: number;
 }
