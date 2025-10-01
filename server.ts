@@ -52,6 +52,29 @@ async function startServer() {
       res.json({ status: 'OK', message: 'Server is running' });
     });
 
+    // Add this to your server.ts temporarily
+    server.get('/api/setup-default-user', async (req, res) => {
+      try {
+        // Check if default user exists
+        let defaultUser = await User.findOne({ where: { id: 1 } });
+
+        if (!defaultUser) {
+          defaultUser = await User.create({
+            id: 1,
+            firstName: 'Default',
+            lastName: 'User',
+            // Add any other required fields
+          });
+          console.log('Default user created:', defaultUser.toJSON());
+        }
+
+        res.json({ message: 'Default user ready', user: defaultUser });
+      } catch (error: any) {
+        console.error('Setup default user failed:', error);
+        res.status(500).json({ error: error.message });
+      }
+    });
+
     // Let Next.js handle all other routes
     server.all('*', (req, res) => {
       return handle(req, res);
@@ -60,6 +83,8 @@ async function startServer() {
     // Start server
     await sequelize.sync({ force: false });
     console.log('Database sync completed');
+
+    // Temporary route to test Game model
 
     server.listen(PORT, () => {
       console.log(`> Ready on http://localhost:${PORT}`);

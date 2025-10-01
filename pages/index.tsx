@@ -1,5 +1,6 @@
 // pages/index.tsx
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
 import type { Game } from '../types/index';
 
 export default function Home() {
@@ -28,7 +29,14 @@ export default function Home() {
 
   return (
     <div className="p-8">
-      <h1 className="text-3xl font-bold mb-6">Trade Wars Dashboard</h1>
+      <div className="flex justify-between items-center mb-6">
+        <h1 className="text-3xl font-bold">Trade Wars Dashboard</h1>
+        <Link href="/games/create">
+          <button className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+            + Create New Game
+          </button>
+        </Link>
+      </div>
       <div className="grid gap-4">
         {games.length === 0 ? (
           <p>No games found. Create your first game!</p>
