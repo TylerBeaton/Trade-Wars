@@ -372,10 +372,26 @@ export default (game: typeof Game) => {
     // GET /games (Read)
     getGames: async (req: Request, res: Response) => {
       try {
+        console.log('getGames called');
+        console.log('Game model:', game);
+        console.log('Game.findAll:', typeof game.findAll);
+
         const games = await game.findAll();
+        console.log('Games found:', games);
+        console.log(
+          'Number of games:',
+          games ? games.length : 'null/undefined'
+        );
+
         res.json(games);
-      } catch (err) {
-        res.status(500).json({ error: 'Failed to fetch games' });
+      } catch (err: any) {
+        console.error('Error in getGames:', err);
+        console.error('Error stack:', err.stack);
+        res.status(500).json({
+          error: 'Failed to fetch games',
+          details: err.message,
+          stack: process.env.NODE_ENV === 'development' ? err.stack : undefined,
+        });
       }
     },
 

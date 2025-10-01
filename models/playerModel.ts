@@ -1,4 +1,5 @@
-import { DataTypes, Model, Sequelize } from 'sequelize';
+import { DataTypes, Model } from 'sequelize';
+import { Sequelize } from 'sequelize';
 import { PlayerAttributes } from '../interfaces/playerAttributes';
 
 export class Player
