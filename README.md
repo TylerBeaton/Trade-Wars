@@ -12,7 +12,7 @@ TradeWars (Working Title) is a trading simulation application that aims to provi
 - Dashboard containing stock analysis tools.
 - Trading AIs with distinct trading personalities to play against.
 - Trading behaviors from player groups to simulate distinct market patterns.
-- Federeated user authentication for easy registration.
+- Federated user authentication for easy registration.
 
 ## Objectives
 
