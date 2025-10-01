@@ -366,3 +366,10 @@ FodyWeavers.xsd
 # Enviroment variables
 .env
 /dist
+
+# Next.js build output
+/.next
+/out/
+
+# VSCode
+/.vscode
