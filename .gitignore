@@ -373,3 +373,5 @@ FodyWeavers.xsd
 
 # VSCode
 /.vscode
+
+.DS_Store
