@@ -11,17 +11,18 @@ const sequelize = new Sequelize({
   database: process.env.DB_NAME || 'database',
   username: process.env.DB_USER || 'user',
   password: process.env.DB_PASSWORD || 'password',
-  logging: console.log,
+  // logging: console.log,
+  logging: false,
 });
 
 // Test the connection
-sequelize
-  .authenticate()
-  .then(() => {
-    console.log('Database connection established successfully.');
-  })
-  .catch((err) => {
-    console.error('Unable to connect to the database:', err);
-  });
+// sequelize
+//   .authenticate()
+//   .then(() => {
+//     console.log('Database connection established successfully.');
+//   })
+//   .catch((err) => {
+//     console.error('Unable to connect to the database:', err);
+//   });
 
 export default sequelize;

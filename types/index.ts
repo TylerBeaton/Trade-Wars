@@ -1,8 +1,8 @@
 // types/index.ts (move from your models or create new)
 export interface Game {
-  id: number;
+  id?: number;
   name: string;
-  description: string;
+  description?: string;
   maxPlayers: number;
   ownerId: number;
   startingBalance: number;

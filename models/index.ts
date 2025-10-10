@@ -72,6 +72,12 @@ export const User = UserModel;
 export const Trade = TradeModel;
 export const Game = GameModel;
 export const Player = PlayerModel;
+
+export type { GameAttributes } from '../interfaces/gameAttributes';
+export type { PlayerAttributes } from '../interfaces/playerAttributes';
+export type { TradeAttributes } from '../interfaces/tradeAttributes';
+export type { UserAttributes } from '../interfaces/userAttributes';
+
 export { sequelize };
 
 // Keep the function for backwards compatibility if needed
