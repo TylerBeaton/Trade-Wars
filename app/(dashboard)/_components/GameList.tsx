@@ -12,9 +12,12 @@ export function GameList({ games }: GameListProps) {
     return (
       <div>
         <ul>
-          <div className="max-w-4xl">
+          <div className="max-w-2xl mx-auto space-y-8">
             {games.map((game) => (
-              <li key={game.id}>
+              <li
+                key={game.id}
+                className="p-6 border rounded-lg hover:shadow-lg transition"
+              >
                 <Link href={`/games/${game.id}`}>
                   <h2>{game.name}</h2>
                 </Link>

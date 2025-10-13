@@ -2,6 +2,9 @@ import Link from 'next/link';
 import { Game } from '@/models';
 import { GameList } from './_components/GameList';
 
+// Shadcn UI components
+import { Button } from '@/components/ui/button';
+
 export default async function Page() {
   const allGames = await Game.findAll();
   const gameData = allGames.map((game) => game.toJSON());
@@ -14,9 +17,9 @@ export default async function Page() {
       <GameList games={gameData} />
       <h2>Create Game</h2>
       {/* Add a "Create New Game" button linking to the game creation page */}
-      <button>
+      <Button>
         <Link href="/create">Create New Game</Link>
-      </button>
+      </Button>
     </div>
   );
 }
