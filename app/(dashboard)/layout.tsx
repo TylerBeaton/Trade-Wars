@@ -4,12 +4,16 @@ import { NavBar } from './_components/NavBar';
 import App from '@/pages.old/_app';
 import { AppSideBar } from './_components/AppSideBar';
 import { SidebarProvider } from '@/components/ui/sidebar';
+import { cookies } from 'next/headers';
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const cookieStore = await cookies();
+  const defaultOpen = cookieStore.get('sidebar_state')?.value === 'true';
+
   return (
     <html lang="en" suppressHydrationWarning>
       <head />
@@ -20,7 +24,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <SidebarProvider>
+          <SidebarProvider defaultOpen={defaultOpen}>
             <AppSideBar />
             <main className="w-full">
               <NavBar />
