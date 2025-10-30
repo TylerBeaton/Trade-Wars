@@ -5,6 +5,7 @@ import { GameList } from './_components/ui/GameList';
 // Shadcn UI components
 import { Button } from '@/components/ui/button';
 import { ModeToggle } from '@/components/ui/mode-toggle';
+import AppBarchart from '@/components/appBarchart';
 
 export default async function Page() {
   const allGames = await Game.findAll();
@@ -12,7 +13,21 @@ export default async function Page() {
 
   return (
     // Create global header/footer components and wrap page content in them
-    <div>
+    <div className="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-4 gap-4">
+      <div className="bg-primary-foreground p-4 rounded-lg lg:col-span-2 xl:col-span-1 2xl:col-span-2">
+        <AppBarchart />
+      </div>
+      <div className="bg-primary-foreground p-4 rounded-lg">Test</div>
+      <div className="bg-primary-foreground p-4 rounded-lg">Test</div>
+      <div className="bg-primary-foreground p-4 rounded-lg">Test</div>
+      <div className="bg-primary-foreground p-4 rounded-lg lg:col-span-2 xl:col-span-1 2xl:col-span-2">
+        Test <br />
+        Test <br />
+        Test <br />
+        Test <br />
+        Test <br />
+      </div>
+      <div className="bg-primary-foreground p-4 rounded-lg">Test</div>
       {/* <ModeToggle />
       <h1 className="text-4xl">Trade Wars Dashboard</h1>
       <h2>Games List</h2>

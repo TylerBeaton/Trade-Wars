@@ -39,6 +39,7 @@
     "pug": "^3.0.3",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
+    "recharts": "^2.15.4",
     "sequelize": "^6.37.7",
     "shadcn": "^3.4.2",
     "tailwind-merge": "^3.3.1",
