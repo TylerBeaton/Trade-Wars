@@ -9,7 +9,9 @@
     "test": "cross-env NODE_ENV=test mocha --require ts-node/register tests/first.test.ts tests/userModel.test.ts tests/userRoutes.test.ts tests/tradeRoutes.test.ts --timeout 10000 --reporter spec --bail",
     "test:routes": "cross-env NODE_ENV=test mocha --require ts-node/register tests/userRoutes.test.ts tests/gameRoutes.test.ts",
     "test:models": "cross-env NODE_ENV=test mocha --require ts-node/register tests/userModel.test.ts tests/tradeModel.test.ts",
-    "lint": "next lint"
+    "lint": "next lint",
+    "db:seed": "tsx --tsconfig scripts/tsconfig.json scripts/seed.ts",
+    "db:reset": "tsx --tsconfig scripts/tsconfig.json scripts/seed.ts --reset"
   },
   "dependencies": {
     "@radix-ui/react-avatar": "^1.1.10",
@@ -46,6 +48,7 @@
     "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
+    "@faker-js/faker": "^10.1.0",
     "@types/chai": "^5.2.2",
     "@types/cookie-parser": "^1.4.9",
     "@types/cors": "^2.8.19",

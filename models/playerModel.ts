@@ -1,15 +1,14 @@
 import { DataTypes, Model } from 'sequelize';
 import { Sequelize } from 'sequelize';
 import { PlayerAttributes } from '../interfaces/playerAttributes';
+import { User } from './userModel';
 
-export class Player
-  extends Model<PlayerAttributes>
-  implements PlayerAttributes
-{
-  public id?: number;
-  public gameId!: number;
-  public userId!: number;
-  public balance!: number;
+export class Player extends Model<PlayerAttributes> {
+  declare id: number;
+  declare gameId: number;
+  declare userId: number;
+  declare balance: number;
+  declare user: User;
 }
 
 export default (sequelize: Sequelize) => {
@@ -22,7 +21,7 @@ export default (sequelize: Sequelize) => {
       },
       gameId: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+        allowNull: true,
       },
       userId: {
         type: DataTypes.INTEGER,

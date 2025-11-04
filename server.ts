@@ -58,7 +58,7 @@ async function startServer() {
     });
 
     // Start server
-    await sequelize.sync({ force: true });
+    await sequelize.sync({ force: false }); // force is now controlled with ./scripts/seed.ts
     console.log('Database sync completed');
 
     if (dev) {
@@ -71,7 +71,8 @@ async function startServer() {
             id: 1,
             firstName: 'Default',
             lastName: 'User',
-            // Add any other required fields
+            email: 'default@example.com',
+            password: 'password123',
           });
           console.log('Default user created:', defaultUser.toJSON());
         }
