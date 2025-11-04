@@ -5,7 +5,7 @@ import { GameList } from './_components/ui/GameList';
 // Shadcn UI components
 import { Button } from '@/components/ui/button';
 import { ModeToggle } from '@/components/ui/mode-toggle';
-import AppBarchart from '@/components/appBarchart';
+import AppBarchart from '@/components/appbarchart';
 
 export default async function Page() {
   const allGames = await Game.findAll();
@@ -20,13 +20,7 @@ export default async function Page() {
       <div className="bg-primary-foreground p-4 rounded-lg">Test</div>
       <div className="bg-primary-foreground p-4 rounded-lg">Test</div>
       <div className="bg-primary-foreground p-4 rounded-lg">Test</div>
-      <div className="bg-primary-foreground p-4 rounded-lg lg:col-span-2 xl:col-span-1 2xl:col-span-2">
-        Test <br />
-        Test <br />
-        Test <br />
-        Test <br />
-        Test <br />
-      </div>
+      <div className="bg-primary-foreground p-4 rounded-lg lg:col-span-2 xl:col-span-1 2xl:col-span-2"></div>
       <div className="bg-primary-foreground p-4 rounded-lg">Test</div>
       {/* <ModeToggle />
       <h1 className="text-4xl">Trade Wars Dashboard</h1>

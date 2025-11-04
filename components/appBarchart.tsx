@@ -26,7 +26,7 @@ const chartData = [
   { month: 'June', desktop: 214, mobile: 140 },
 ];
 
-const AppBarchart = () => {
+const AppBarChart = () => {
   return (
     <div className="">
       <h1 className="text-lg font-medium mb-6">Revenue</h1>
@@ -56,4 +56,4 @@ const AppBarchart = () => {
   );
 };
 
-export default AppBarchart;
+export default AppBarChart;

@@ -1,8 +1,8 @@
 import '@/styles/globals.css';
 import { ThemeProvider } from '@/components/ui/theme-provider';
-import { NavBar } from './_components/NavBar';
+import { NavBar } from '../NavBar';
 import App from '@/pages.old/_app';
-import { AppSideBar } from './_components/AppSideBar';
+import { AppSideBar } from '@/app/AppSideBar';
 import { SidebarProvider } from '@/components/ui/sidebar';
 import { cookies } from 'next/headers';
 
