@@ -1,18 +1,18 @@
 import { DataTypes, Model, Sequelize } from 'sequelize';
 import { TradeAttributes } from '../interfaces/tradeAttributes';
 
-export class Trade extends Model<TradeAttributes> implements TradeAttributes {
-  public id?: number;
-  public ownerId!: number;
-  public gameId!: number;
-  public stock!: string;
-  public price!: number;
-  public quantity!: number;
-  public type!: 'buy' | 'sell';
-  public description?: string;
-  public isActive!: boolean;
-  public createdAt!: Date;
-  public updatedAt?: Date;
+export class Trade extends Model<TradeAttributes> {
+  declare id: number;
+  declare ownerId: number;
+  declare gameId: number;
+  declare stock: string;
+  declare price: number;
+  declare quantity: number;
+  declare type: 'buy' | 'sell';
+  declare description: string;
+  declare isActive: boolean;
+  declare createdAt: Date;
+  declare updatedAt: Date;
 }
 
 export default (sequelize: Sequelize) => {
@@ -32,11 +32,11 @@ export default (sequelize: Sequelize) => {
         allowNull: false,
       },
       stock: {
-        type: DataTypes.STRING(4),
+        type: DataTypes.STRING(6),
         allowNull: false,
         validate: {
           isUppercase: true,
-          len: [1, 4],
+          len: [1, 6],
         },
       },
       price: {

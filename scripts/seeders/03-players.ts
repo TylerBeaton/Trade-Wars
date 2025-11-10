@@ -6,11 +6,9 @@ export async function seedPlayers() {
   const games = await Game.findAll();
 
   for (const game of games) {
-    const gameData = game.get({ plain: true });
-
     const playerCount = faker.number.int({
       min: 2,
-      max: Math.min(gameData.maxPlayers, users.length),
+      max: Math.min(game.maxPlayers, users.length),
     });
 
     const shuffledUsers = faker.helpers.shuffle([...users]);
@@ -19,10 +17,10 @@ export async function seedPlayers() {
     for (const user of selectedUsers) {
       const userData = user.get({ plain: true });
 
-      const player = await Player.create({
-        gameId: gameData.id as number,
+      await Player.create({
+        gameId: game.id as number,
         userId: userData.id as number,
-        balance: gameData.startingBalance as number,
+        balance: game.startingBalance as number,
       });
     }
   }
