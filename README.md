@@ -36,6 +36,7 @@ TradeWars (Working Title) is a trading simulation application that aims to provi
 - **Middleware:** CORS, body-parser, express-validator
 - **Development Tools:** Nodemon
 - **Front-end** Next.js
+- **UI Components** Shadcn
 - **CSS Framework** Tailwind
 - **Linter** ESLint
 
