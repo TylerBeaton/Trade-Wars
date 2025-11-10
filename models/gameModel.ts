@@ -1,21 +1,21 @@
 import { DataTypes, Model, Sequelize, Association } from 'sequelize';
 import { GameAttributes } from '../interfaces/gameAttributes';
 import { Player } from './playerModel';
-export class Game extends Model<GameAttributes> implements GameAttributes {
-  id?: number;
-  name!: string;
-  description?: string;
-  maxPlayers!: number;
+export class Game extends Model<GameAttributes> {
+  declare id: number;
+  declare name: string;
+  declare description: string;
+  declare maxPlayers: number;
 
-  ownerId!: number;
-  startingBalance!: number;
+  declare ownerId: number;
+  declare startingBalance: number;
 
-  createdAt!: Date;
-  updatedAt?: Date;
-  isActive!: boolean;
-  endsAt!: Date;
-  players?: Player[];
-  winner?: number;
+  declare createdAt: Date;
+  declare updatedAt: Date;
+  declare isActive: boolean;
+  declare endsAt: Date;
+  declare players: Player[];
+  declare winner: number;
 
   addPlayer!: (player: Player) => Promise<void>;
   removePlayer!: (playerId: number) => Promise<void>;

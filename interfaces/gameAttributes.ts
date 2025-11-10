@@ -1,3 +1,5 @@
+import { Player } from '../models/playerModel';
+
 export interface GameAttributes {
   id?: number;
   name: string;
@@ -7,5 +9,6 @@ export interface GameAttributes {
   startingBalance: number;
   isActive: boolean;
   endsAt: Date;
+  players?: Player[];
   winner?: number;
 }
