@@ -39,7 +39,14 @@ TradeWars (Working Title) is a trading simulation application that aims to provi
 - **CSS Framework** Tailwind
 - **Linter** ESLint
 
-# Instructions
+## Instructions
+
+### Script usage
+
+#### Database seeding
+
+Running this command will seed the database:
+    npm run db:seed -- --userCount 20 --gameCount 20 --tradeCountMin 20 --tradeCountMax 20 --output
 
 - TODO
 
