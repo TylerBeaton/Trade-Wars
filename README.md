@@ -46,8 +46,9 @@ TradeWars (Working Title) is a trading simulation application that aims to provi
 #### Database seeding
 
 Running this command will seed the database:
-    npm run db:seed -- --userCount 20 --gameCount 20 --tradeCountMin 20 --tradeCountMax 20 --output
-
+```
+npm run db:seed -- --userCount 20 --gameCount 20 --tradeCountMin 20 --tradeCountMax 20 --output
+```
 - TODO
 
 ## Tests
