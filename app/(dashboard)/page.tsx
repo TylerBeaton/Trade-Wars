@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { Game } from '@/models';
-import { GameList } from './_components/ui/GameList';
+// import { GameList } from '@/components/gameList';
 
 // Shadcn UI components
 import { Button } from '@/components/ui/button';

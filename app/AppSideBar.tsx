@@ -52,17 +52,17 @@ import {
 const items = [
   {
     title: 'Home',
-    url: '#',
+    url: '/',
     icon: Home,
   },
   {
-    title: 'Inbox',
-    url: '#',
+    title: 'Games',
+    url: '/games',
     icon: Inbox,
   },
   {
-    title: 'Calendar',
-    url: '#',
+    title: 'My Games',
+    url: '/.',
     icon: Calendar,
   },
   {

@@ -14,7 +14,7 @@ export default async function Page({ params }) {
       <p>Max Players: {game.maxPlayers}</p>
       <p>Starting Balance: {game.startingBalance}</p>
       <p>Ends At: {new Date(game.endsAt).toLocaleString()}</p>
-      <Link href="/">Back to games list</Link>
+      <Link href="/games">Back to games list!</Link>
     </div>
   );
 }
