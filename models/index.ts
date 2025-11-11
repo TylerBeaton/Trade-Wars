@@ -23,6 +23,11 @@ TradeModel.belongsTo(GameModel, {
   as: 'game',
 });
 
+GameModel.hasMany(TradeModel, {
+  foreignKey: 'gameId',
+  as: 'trades',
+});
+
 // Owner of the game
 GameModel.belongsTo(UserModel, {
   foreignKey: 'ownerId',

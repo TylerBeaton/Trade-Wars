@@ -1,3 +1,5 @@
+import { UserAttributes } from './userAttributes';
+
 export interface PlayerAttributes {
   id?: number;
   gameId: number;
@@ -5,4 +7,5 @@ export interface PlayerAttributes {
   balance: number;
   createdAt?: Date;
   updatedAt?: Date;
+  user?: UserAttributes;
 }
