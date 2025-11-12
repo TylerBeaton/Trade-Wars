@@ -17,13 +17,29 @@ export async function seedTrades(
         i < faker.number.int({ min: tradeCountMin, max: tradeCountMax });
         i++
       ) {
+        const type = faker.helpers.arrayElement(['buy', 'sell']);
+        const price = faker.number.float({
+          min: 1,
+          max: 100,
+          fractionDigits: 2,
+        });
+        let quantity = faker.number.int({ min: 1, max: 1000 });
+        if (type === 'buy') {
+          while (price * quantity > player.balance) {
+            quantity = faker.number.int({ min: 1, max: 1000 });
+          }
+          player.balance -= price * quantity;
+        } else {
+          player.balance += price * quantity;
+        }
+        await player.save();
         const stock = faker.helpers.arrayElement(tickerData);
         await Trade.create({
           ownerId: player.id,
           gameId: game.id,
           stock: stock,
-          price: faker.number.float({ min: 1, max: 100, fractionDigits: 2 }),
-          quantity: faker.number.int({ min: 1, max: 10 }),
+          price: price,
+          quantity: quantity,
           type: faker.helpers.arrayElement(['buy', 'sell']),
           description: faker.lorem.sentence(),
           isActive: true,

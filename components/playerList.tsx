@@ -24,33 +24,31 @@ export function PlayerList({ players }: PlayerListProps) {
     return <p className="text-gray-500 text-center py-8">No Players Found!</p>;
   } else
     return (
-      <div className="w-full">
-        <Table>
-          {/* <TableCaption className="caption-top text-lg text-left">
-            Games
+      <Table>
+        {/* <TableCaption className="text-2xl font-semibold mt-4 mb-2 caption-top text-left">
+            Player List
           </TableCaption> */}
-          <TableHeader>
-            <TableRow>
-              <TableHead>Name</TableHead>
-              <TableHead>Balance</TableHead>
+        <TableHeader>
+          <TableRow>
+            <TableHead>Name</TableHead>
+            <TableHead>Balance</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {players.map((player) => (
+            <TableRow key={player.id}>
+              <TableCell>
+                <Link
+                  href={`/users/${player.userId}`}
+                  className="font-medium text-blue-600 hover:underline"
+                >
+                  {player.user?.firstName} {player.user?.lastName}
+                </Link>
+              </TableCell>
+              <TableCell>{player.balance}</TableCell>
             </TableRow>
-          </TableHeader>
-          <TableBody>
-            {players.map((player) => (
-              <TableRow key={player.id}>
-                <TableCell>
-                  <Link
-                    href={`/users/${player.userId}`}
-                    className="font-medium text-blue-600 hover:underline"
-                  >
-                    {player.user?.firstName} {player.user?.lastName}
-                  </Link>
-                </TableCell>
-                <TableCell>{player.balance}</TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </div>
+          ))}
+        </TableBody>
+      </Table>
     );
 }

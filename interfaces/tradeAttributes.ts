@@ -1,3 +1,5 @@
+import { PlayerAttributes } from './playerAttributes';
+
 export interface TradeAttributes {
   id?: number;
   ownerId: number;
@@ -8,4 +10,7 @@ export interface TradeAttributes {
   type: 'buy' | 'sell';
   description?: string;
   isActive: boolean;
+  owner?: PlayerAttributes;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
