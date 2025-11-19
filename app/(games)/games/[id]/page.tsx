@@ -2,6 +2,7 @@ import { Game, Player, User, Trade } from '@/models';
 import Link from 'next/link';
 import { PlayerList } from '@/components/playerList';
 import { TradeList } from '@/components/tradeList';
+import { GameDetails } from '@/components/gameDetails';
 import {
   Accordion,
   AccordionContent,
@@ -9,6 +10,7 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion';
 import { Separator } from '@/components/ui/separator';
+import { Button } from '@/components/ui/button';
 
 export default async function Page({ params }) {
   const parsedParams = await params;
@@ -82,30 +84,36 @@ export default async function Page({ params }) {
 
   return (
     <div>
-      <h1 className="text-4xl font-bold tracking-tight">{game.name}</h1>
-      <p className="text-2xl font-thin tracking-normal mb-2">
-        {game.description}
-      </p>
-      <p>Max Players: {game.maxPlayers}</p>
-      <p>Starting Balance: {game.startingBalance}</p>
-      <p>Ends At: {new Date(game.endsAt).toLocaleString()}</p>
-      Players ({playerData.length}/{game.maxPlayers})
+      <div className="">
+        <h1 className="text-4xl font-bold tracking-tight">{game.name}</h1>
+        <h2 className="text-2xl font-thin tracking-normal mb-2">
+          {game.description}
+        </h2>
+      </div>
       <Separator className="my-4" />
-      <Accordion type="single" collapsible>
+      <Accordion type="single" collapsible defaultValue="item-1">
         <AccordionItem value="item-1">
+          <AccordionTrigger>Game Info</AccordionTrigger>
+          <AccordionContent>
+            <GameDetails details={[game.toJSON()]} />
+          </AccordionContent>
+        </AccordionItem>
+        <AccordionItem value="item-2">
           <AccordionTrigger>Players</AccordionTrigger>
           <AccordionContent>
             <PlayerList players={playerData} />
           </AccordionContent>
         </AccordionItem>
-        <AccordionItem value="item-2">
+        <AccordionItem value="item-3">
           <AccordionTrigger>Trades</AccordionTrigger>
           <AccordionContent>
             <TradeList trades={tradeData} />
           </AccordionContent>
         </AccordionItem>
       </Accordion>
-      <Link href="/games">Back to games list!</Link>
+      <Button variant="outline" className="my-2">
+        <Link href="/games">Back</Link>
+      </Button>
     </div>
   );
 }

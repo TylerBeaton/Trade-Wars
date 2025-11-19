@@ -57,7 +57,7 @@ export function TradeList({ trades: trades }: TradeListProps) {
                 {trade.createdAt
                   ? new Date(trade.createdAt).toLocaleString()
                   : 'N/A'}
-              </TableCell>{' '}
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>

@@ -17,11 +17,19 @@ export default async function Page() {
       <div className="bg-primary-foreground p-4 rounded-lg lg:col-span-2 xl:col-span-1 2xl:col-span-2">
         <AppBarchart />
       </div>
-      <div className="bg-primary-foreground p-4 rounded-lg">Test</div>
-      <div className="bg-primary-foreground p-4 rounded-lg">Test</div>
-      <div className="bg-primary-foreground p-4 rounded-lg">Test</div>
-      <div className="bg-primary-foreground p-4 rounded-lg lg:col-span-2 xl:col-span-1 2xl:col-span-2"></div>
-      <div className="bg-primary-foreground p-4 rounded-lg">Test</div>
+      <div className="bg-primary-foreground p-4 rounded-lg">
+        Popular Game Right Now
+      </div>
+      <div className="bg-primary-foreground p-4 rounded-lg">
+        Global Leaderboard
+      </div>
+      <div className="bg-primary-foreground p-4 rounded-lg">
+        Suggested Game to Join
+      </div>
+      <div className="bg-primary-foreground p-4 rounded-lg lg:col-span-2 xl:col-span-1 2xl:col-span-2">
+        Your Current Stats
+      </div>
+      <div className="bg-primary-foreground p-4 rounded-lg">Quick Trade</div>
       {/* <ModeToggle />
       <h1 className="text-4xl">Trade Wars Dashboard</h1>
       <h2>Games List</h2>
