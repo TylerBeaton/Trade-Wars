@@ -91,7 +91,12 @@ export default async function Page({ params }) {
         </h2>
       </div>
       <Separator className="my-4" />
-      <Accordion type="single" collapsible defaultValue="item-1">
+      <Accordion
+        type="single"
+        collapsible
+        defaultValue="item-1"
+        className="w-full"
+      >
         <AccordionItem value="item-1">
           <AccordionTrigger>Game Info</AccordionTrigger>
           <AccordionContent>
