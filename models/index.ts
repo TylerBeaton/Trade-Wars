@@ -23,15 +23,20 @@ TradeModel.belongsTo(GameModel, {
   as: 'game',
 });
 
+UserModel.hasMany(GameModel, {
+  foreignKey: 'ownerId',
+  as: 'ownedGames',
+});
+
+UserModel.hasMany(PlayerModel, {
+  foreignKey: 'userId',
+  as: 'playerRoles',
+});
+
 // Owner of the game
 GameModel.belongsTo(UserModel, {
   foreignKey: 'ownerId',
   as: 'owner',
-});
-
-UserModel.hasMany(GameModel, {
-  foreignKey: 'ownerId',
-  as: 'ownedGames',
 });
 
 GameModel.belongsToMany(UserModel, {
@@ -39,6 +44,11 @@ GameModel.belongsToMany(UserModel, {
   as: 'users',
   foreignKey: 'gameId',
   otherKey: 'userId',
+});
+
+GameModel.hasMany(PlayerModel, {
+  foreignKey: 'gameId',
+  as: 'players',
 });
 
 // Player associations
@@ -55,16 +65,6 @@ PlayerModel.belongsTo(UserModel, {
 PlayerModel.hasMany(TradeModel, {
   foreignKey: 'ownerId',
   as: 'trades',
-});
-
-GameModel.hasMany(PlayerModel, {
-  foreignKey: 'gameId',
-  as: 'players',
-});
-
-UserModel.hasMany(PlayerModel, {
-  foreignKey: 'userId',
-  as: 'playerRoles',
 });
 
 // Export the initialized models (these are actual Sequelize model instances)

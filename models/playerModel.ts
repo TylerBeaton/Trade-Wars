@@ -6,7 +6,7 @@ import { User } from './userModel';
 export class Player extends Model<PlayerAttributes> {
   declare id: number;
   declare gameId: number;
-  declare userId: number;
+  declare userId: string;
   declare balance: number;
   declare user: User;
 }
@@ -19,13 +19,21 @@ export default (sequelize: Sequelize) => {
         autoIncrement: true,
         primaryKey: true,
       },
+      userId: {
+        type: DataTypes.TEXT,
+        allowNull: false,
+        references: {
+          model: 'users',
+          key: 'id',
+        },
+      },
       gameId: {
         type: DataTypes.INTEGER,
         allowNull: true,
-      },
-      userId: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
+        references: {
+          model: 'games',
+          key: 'id',
+        },
       },
       balance: {
         type: DataTypes.DECIMAL(10, 2),
@@ -43,6 +51,7 @@ export default (sequelize: Sequelize) => {
     {
       sequelize,
       tableName: 'players',
+      timestamps: true,
       indexes: [
         {
           unique: true,

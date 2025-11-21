@@ -3,26 +3,24 @@ import { Sequelize } from 'sequelize';
 import { UserAttributes } from '../interfaces/userAttributes';
 
 export class User extends Model<UserAttributes> {
-  declare id: number;
-  declare firstName: string;
-  declare lastName: string;
+  declare id: string;
+  declare name: string;
   declare email: string;
-  declare password: string;
+  declare emailVerified: boolean;
+  declare image?: string;
+  declare readonly createdAt: Date;
+  declare readonly updatedAt: Date;
 }
 
 export default (sequelize: Sequelize) => {
   User.init(
     {
       id: {
-        type: DataTypes.INTEGER,
-        autoIncrement: true,
+        type: DataTypes.TEXT,
         primaryKey: true,
+        defaultValue: DataTypes.UUIDV4,
       },
-      firstName: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-      lastName: {
+      name: {
         type: DataTypes.STRING,
         allowNull: false,
       },
@@ -30,14 +28,20 @@ export default (sequelize: Sequelize) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      password: {
-        type: DataTypes.STRING,
+      emailVerified: {
+        type: DataTypes.BOOLEAN,
         allowNull: false,
+        defaultValue: false,
+      },
+      image: {
+        type: DataTypes.STRING,
+        allowNull: true,
       },
     },
     {
       sequelize,
       tableName: 'users',
+      timestamps: true,
     }
   );
   return User;

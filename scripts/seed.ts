@@ -27,7 +27,7 @@ async function seedDatabase(
             {
               model: User,
               as: 'user',
-              attributes: ['firstName', 'lastName'],
+              attributes: ['name'],
             },
           ],
         },
@@ -45,9 +45,7 @@ async function seedDatabase(
         startingBalance: game.startingBalance,
         playerCount: game.players.length,
         players:
-          game.players
-            .map((p) => `${p.user?.firstName} ${p.user?.lastName}`)
-            .join(', ') || 'None',
+          game.players.map((p) => `${p.user?.name}`).join(', ') || 'None',
       });
 
       // List transactions

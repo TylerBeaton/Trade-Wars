@@ -3,6 +3,8 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 import express from 'express';
+import { toNodeHandler } from 'better-auth/node';
+import { auth } from '@/lib/auth';
 import next from 'next';
 import cors from 'cors';
 
@@ -23,6 +25,10 @@ async function startServer() {
 
     const server = express();
     const PORT = process.env.PORT || 3000;
+
+    // Better Auth middleware
+
+    server.all('/api/auth/{*any}', toNodeHandler(auth));
 
     // Express middleware
     server.use(cors());
