@@ -1,8 +1,21 @@
-import { betterAuth } from 'better-auth';
-import { sequelize } from '@/models';
-import postgres from 'pg';
+import dotenv from 'dotenv';
+dotenv.config();
 
-const { Pool } = postgres;
+import { betterAuth } from 'better-auth';
+import { Pool } from 'pg';
+
+const dev = process.env.NODE_ENV !== 'production';
+
+if (dev) {
+  console.log('FROM AUTH.TS FILE', dev);
+
+  console.log('Better Auth DB Config:', {
+    host: process.env.DB_HOST,
+    port: process.env.DB_PORT,
+    database: process.env.DB_NAME,
+    user: process.env.DB_USER,
+  }); // Debug log
+}
 
 const pool = new Pool({
   host: process.env.DB_HOST,

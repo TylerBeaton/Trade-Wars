@@ -1,3 +1,7 @@
+'use client';
+import { useSession } from '@/lib/auth-client';
+import { useRouter } from 'next/navigation';
+
 import {
   Home,
   Inbox,
@@ -77,6 +81,16 @@ const items = [
   },
 ];
 export function AppSideBar() {
+  const { data: session, isPending } = useSession();
+  const router = useRouter();
+
+  const handleLogout = async () => {
+    const { authClient } = await import('@/lib/auth-client');
+    await authClient.signOut();
+    router.push('/login');
+    router.refresh();
+  };
+
   return (
     <Sidebar collapsible="icon">
       <SidebarHeader className="py-4">
@@ -206,7 +220,9 @@ export function AppSideBar() {
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <SidebarMenuButton>
-                <User2 /> John Doe <ChevronUp className="ml-auto" />
+                <User2 />
+                {isPending ? 'Loading...' : session?.user?.name || 'Guest'}
+                <ChevronUp className="ml-auto" />
               </SidebarMenuButton>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
@@ -215,7 +231,7 @@ export function AppSideBar() {
               <DropdownMenuItem>Profile</DropdownMenuItem>
               <DropdownMenuItem>Settings</DropdownMenuItem>
               <DropdownMenuItem>Help</DropdownMenuItem>
-              <DropdownMenuItem>Logout</DropdownMenuItem>
+              <DropdownMenuItem onClick={handleLogout}>Logout</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </SidebarMenuItem>
