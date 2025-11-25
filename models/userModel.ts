@@ -4,6 +4,7 @@ import { UserAttributes } from '../interfaces/userAttributes';
 
 export class User extends Model<UserAttributes> {
   declare id: string;
+  declare username?: string;
   declare name: string;
   declare email: string;
   declare emailVerified: boolean;
@@ -19,6 +20,11 @@ export default (sequelize: Sequelize) => {
         type: DataTypes.TEXT,
         primaryKey: true,
         defaultValue: DataTypes.UUIDV4,
+      },
+      username: {
+        type: DataTypes.STRING,
+        allowNull: true,
+        unique: true,
       },
       name: {
         type: DataTypes.STRING,

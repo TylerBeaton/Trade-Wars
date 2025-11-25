@@ -23,7 +23,7 @@ export default async function Page({ params }) {
           {
             model: User,
             as: 'user',
-            attributes: ['id', 'firstName', 'lastName', 'email'],
+            attributes: ['id', 'name', 'email', 'username'],
           },
         ],
       },
@@ -38,7 +38,7 @@ export default async function Page({ params }) {
               {
                 model: User,
                 as: 'user',
-                attributes: ['firstName', 'lastName'],
+                attributes: ['name', 'username'],
               },
             ],
           },
@@ -53,7 +53,7 @@ export default async function Page({ params }) {
       {
         model: User,
         as: 'user',
-        attributes: ['id', 'firstName', 'lastName', 'email'],
+        attributes: ['id', 'name', 'email', 'username'],
       },
     ],
   });
@@ -68,7 +68,7 @@ export default async function Page({ params }) {
           {
             model: User,
             as: 'user',
-            attributes: ['firstName', 'lastName'],
+            attributes: ['id', 'name', 'username'],
           },
         ],
       },

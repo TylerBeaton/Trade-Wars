@@ -42,7 +42,7 @@ export function PlayerList({ players }: PlayerListProps) {
                   href={`/users/${player.userId}`}
                   className="font-medium text-blue-600 hover:underline"
                 >
-                  {player.user?.firstName} {player.user?.lastName}
+                  {player.user?.username}
                 </Link>
               </TableCell>
               <TableCell>{player.balance}</TableCell>

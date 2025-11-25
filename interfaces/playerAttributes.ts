@@ -2,7 +2,7 @@ import { UserAttributes } from './userAttributes';
 
 export interface PlayerAttributes {
   id?: number;
-  userId: number;
+  userId: string;
   gameId: number;
   balance: number;
   createdAt?: Date;

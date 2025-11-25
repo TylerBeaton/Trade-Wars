@@ -19,7 +19,7 @@ export async function seedPlayers() {
 
       await Player.create({
         gameId: game.id as number,
-        userId: userData.id as number,
+        userId: userData.id as string,
         balance: game.startingBalance as number,
       });
     }

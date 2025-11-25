@@ -27,7 +27,7 @@ async function seedDatabase(
             {
               model: User,
               as: 'user',
-              attributes: ['name'],
+              attributes: ['name', 'username'],
             },
           ],
         },
@@ -63,9 +63,8 @@ async function seedDatabase(
         }))
       );
     }
-
-    await sequelize.close();
   }
+  await sequelize.close();
 }
 
 function parseArgs() {
