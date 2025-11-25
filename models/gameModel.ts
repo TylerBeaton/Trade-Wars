@@ -7,7 +7,7 @@ export class Game extends Model<GameAttributes> {
   declare description: string;
   declare maxPlayers: number;
 
-  declare ownerId: number;
+  declare ownerId: string;
   declare startingBalance: number;
 
   declare createdAt: Date;
@@ -70,8 +70,12 @@ export default (sequelize: Sequelize) => {
         },
       },
       ownerId: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: false,
+        references: {
+          model: 'users',
+          key: 'id',
+        },
       },
       startingBalance: {
         type: DataTypes.DECIMAL(10, 2),

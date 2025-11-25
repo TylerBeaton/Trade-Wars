@@ -3,6 +3,8 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 import express from 'express';
+import { toNodeHandler } from 'better-auth/node';
+import { auth } from '@/lib/auth';
 import next from 'next';
 import cors from 'cors';
 
@@ -14,8 +16,10 @@ import { gameRouter } from './routes/gameRouter';
 import { userRouter } from './routes/userRouter';
 
 const dev = process.env.NODE_ENV !== 'production';
+export { dev };
 const app = next({ dev });
 const handle = app.getRequestHandler();
+import { v4 as uuidv4 } from 'uuid';
 
 async function startServer() {
   try {
@@ -27,6 +31,20 @@ async function startServer() {
     // Express middleware
     server.use(cors());
     server.use(express.json());
+
+    server.get('/api/auth/test', (req, res) => {
+      res.json({
+        message: 'Better Auth is configured',
+        authEndpoints: [
+          '/api/auth/session',
+          '/api/auth/sign-in/email',
+          '/api/auth/sign-up/email',
+          '/api/auth/sign-out',
+        ],
+      });
+    });
+
+    server.all('/api/auth/*', toNodeHandler(auth)); // Better Auth middleware
 
     // Debugging middleware
     server.use('/api', (req, res, next) => {
@@ -60,26 +78,6 @@ async function startServer() {
     // Start server
     await sequelize.sync({ force: false }); // force is now controlled with ./scripts/seed.ts
     console.log('Database sync completed');
-
-    if (dev) {
-      try {
-        // Check if default user exists
-        let defaultUser = await User.findOne({ where: { id: 1 } });
-
-        if (!defaultUser) {
-          defaultUser = await User.create({
-            id: 1,
-            firstName: 'Default',
-            lastName: 'User',
-            email: 'default@example.com',
-            password: 'password123',
-          });
-          console.log('Default user created:', defaultUser.toJSON());
-        }
-      } catch (error: any) {
-        console.error('Setup default user failed:', error);
-      }
-    }
 
     // Temporary route to test Game model
 
