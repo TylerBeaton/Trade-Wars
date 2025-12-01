@@ -25,8 +25,17 @@ const pool = new Pool({
   password: process.env.DB_PASSWORD,
 });
 
-export const auth = betterAuth({
+export const Auth = betterAuth({
   database: pool,
+  user: {
+    additionalFields: {
+      username: {
+        type: 'string',
+        unique: true,
+        required: false,
+      },
+    },
+  },
   emailAndPassword: {
     enabled: true,
   },
@@ -39,4 +48,4 @@ export const auth = betterAuth({
   trustedOrigins: [process.env.BETTER_AUTH_URL || 'http://localhost:3000'],
 });
 
-export type Session = typeof auth.$Infer.Session;
+export type Session = typeof Auth.$Infer.Session;

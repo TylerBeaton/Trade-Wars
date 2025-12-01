@@ -73,7 +73,7 @@ export default (sequelize: Sequelize) => {
         type: DataTypes.STRING,
         allowNull: false,
         references: {
-          model: 'users',
+          model: 'user',
           key: 'id',
         },
       },

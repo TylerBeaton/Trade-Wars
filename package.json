@@ -11,7 +11,8 @@
     "test:models": "cross-env NODE_ENV=test mocha --require ts-node/register tests/userModel.test.ts tests/tradeModel.test.ts",
     "lint": "next lint",
     "db:seed": "tsx --tsconfig scripts/tsconfig.json scripts/seed.ts",
-    "db:reset": "tsx --tsconfig scripts/tsconfig.json scripts/seed.ts --reset"
+    "db:reset": "tsx --tsconfig scripts/tsconfig.json scripts/seed.ts --reset",
+    "db:migrate": "npx ts-node scripts/migrate.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",

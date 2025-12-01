@@ -46,7 +46,8 @@ export default (sequelize: Sequelize) => {
     },
     {
       sequelize,
-      tableName: 'users',
+      tableName: 'user',
+      modelName: 'User',
       timestamps: true,
     }
   );

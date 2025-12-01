@@ -10,7 +10,7 @@ export default function ProfilePage() {
 
   if (isPending) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-gray-100">
+      <div className="flex min-h-screen items-center justify-center">
         <p>Loading...</p>
       </div>
     );
@@ -18,7 +18,7 @@ export default function ProfilePage() {
 
   if (!session) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-gray-100">
+      <div className="flex min-h-screen items-center justify-center ">
         <div className="w-full max-w-md space-y-8 rounded-lg bg-white p-8 shadow-md">
           <div>
             <h2 className="text-center text-3xl font-bold">Not Logged In</h2>
@@ -46,6 +46,11 @@ export default function ProfilePage() {
         </div>
 
         <ul className="text-center text-sm text-gray-600">
+          <li>
+            <span className="font-medium">
+              Username: {session.user.username || 'N/A'}
+            </span>
+          </li>
           <li>
             <span className="font-medium"> Name: {session.user.name}</span>
           </li>

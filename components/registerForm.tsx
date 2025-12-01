@@ -20,6 +20,9 @@ import { Input } from '@/components/ui/input';
 
 const formSchema = z
   .object({
+    username: z.string().min(2, {
+      message: 'Username must be at least 2 characters.',
+    }),
     name: z.string().min(2, {
       message: 'Name must be at least 2 characters.',
     }),
@@ -43,6 +46,7 @@ export function RegisterForm() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
+      username: '',
       name: '',
       email: '',
       password: '',
@@ -54,11 +58,25 @@ export function RegisterForm() {
     setError('');
 
     try {
-      await authClient.signUp.email({
-        email: values.email,
-        password: values.password,
-        name: values.name,
-      });
+      const result = await authClient.signUp.email(
+        {
+          email: values.email,
+          password: values.password,
+          name: values.name,
+        },
+        {
+          body: {
+            username: values.username,
+          },
+        }
+      );
+
+      console.log('Sign-up results:', result);
+
+      if (result?.error) {
+        setError(result.error.message || 'Failed to create account');
+        return;
+      }
 
       router.push('/');
       router.refresh();
@@ -75,6 +93,20 @@ export function RegisterForm() {
             {error}
           </div>
         )}
+
+        <FormField
+          control={form.control}
+          name="username"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Username</FormLabel>
+              <FormControl>
+                <Input placeholder="johndoe" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
 
         <FormField
           control={form.control}

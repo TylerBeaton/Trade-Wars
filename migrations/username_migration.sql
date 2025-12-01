@@ -1,0 +1,2 @@
+-- Add username column to Better Auth user table
+-- ALTER TABLE "user" ADD COLUMN IF NOT EXISTS username VARCHAR(255) UNIQUE;
