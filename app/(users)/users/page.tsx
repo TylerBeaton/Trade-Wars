@@ -1,5 +1,6 @@
 import { User } from '@/models';
 import { GameList } from '@/components/gameList';
+import Link from 'next/link';
 
 export default async function Page() {
   const allUsers = await User.findAll();
@@ -10,7 +11,12 @@ export default async function Page() {
       <ul>
         {allUsers.map((user) => (
           <li key={user.id} className="mb-2">
-            {user.name}
+            <Link
+              href={`/users/${user.username}`}
+              className="font-medium text-blue-600 hover:underline"
+            >
+              {user.username}
+            </Link>
           </li>
         ))}
       </ul>

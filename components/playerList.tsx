@@ -39,7 +39,7 @@ export function PlayerList({ players }: PlayerListProps) {
             <TableRow key={player.id}>
               <TableCell>
                 <Link
-                  href={`/users/${player.userId}`}
+                  href={`/users/${player.user?.username}`}
                   className="font-medium text-blue-600 hover:underline"
                 >
                   {player.user?.username}
