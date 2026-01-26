@@ -15,7 +15,7 @@ export class Trade extends Model<TradeAttributes> {
   declare updatedAt: Date;
 }
 
-export default (sequelize: Sequelize) => {
+const tradeModel = (sequelize: Sequelize) => {
   Trade.init(
     {
       id: {
@@ -74,3 +74,5 @@ export default (sequelize: Sequelize) => {
 
   return Trade;
 };
+
+export default tradeModel;

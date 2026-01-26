@@ -39,7 +39,7 @@ export class Game extends Model<GameAttributes> {
   };
 }
 
-export default (sequelize: Sequelize) => {
+const gameModel = (sequelize: Sequelize) => {
   Game.init(
     {
       id: {
@@ -106,3 +106,5 @@ export default (sequelize: Sequelize) => {
 
   return Game;
 };
+
+export default gameModel;

@@ -11,7 +11,7 @@ export class Player extends Model<PlayerAttributes> {
   declare user: User;
 }
 
-export default (sequelize: Sequelize) => {
+const playerModel = (sequelize: Sequelize) => {
   Player.init(
     {
       id: {
@@ -63,3 +63,5 @@ export default (sequelize: Sequelize) => {
 
   return Player;
 };
+
+export default playerModel;

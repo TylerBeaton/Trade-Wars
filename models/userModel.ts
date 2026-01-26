@@ -13,7 +13,7 @@ export class User extends Model<UserAttributes> {
   declare readonly updatedAt: Date;
 }
 
-export default (sequelize: Sequelize) => {
+const userModel = (sequelize: Sequelize) => {
   User.init(
     {
       id: {
@@ -53,3 +53,5 @@ export default (sequelize: Sequelize) => {
   );
   return User;
 };
+
+export default userModel;

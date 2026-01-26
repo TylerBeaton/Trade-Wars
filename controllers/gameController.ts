@@ -4,7 +4,7 @@ import { User } from '../models/userModel';
 import { Trade } from '../models/tradeModel';
 import { Player } from '../models/playerModel';
 
-export default (game: typeof Game) => {
+const gameController = (game: typeof Game) => {
   return {
     // POST Trade Operations //
 
@@ -439,3 +439,5 @@ export default (game: typeof Game) => {
     },
   };
 };
+
+export default gameController;

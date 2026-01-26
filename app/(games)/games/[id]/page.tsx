@@ -119,6 +119,10 @@ export default async function Page({ params }) {
       <Button variant="outline" className="my-2">
         <Link href="/games">Back</Link>
       </Button>
+
+      <Separator className="my-4" />
+
+      {!pla}
     </div>
   );
 }
